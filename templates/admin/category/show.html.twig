@@ -1,0 +1,77 @@
+{% extends 'admin_layout.html.twig' %}
+
+{% block title %}Voir "{{ category.title }}"{% endblock %}
+
+{% block page_title %}Voir <strong>{{ category.title }}</strong>{% endblock %}
+
+{% block breadcrumb_items %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb justify-content-end">
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_category_index') }}">Catégories</a></li>
+            <li class="breadcrumb-item active">{{ category.title }}</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <div class="float-end">
+                <a href="{{ path('app_admin_category_edit', {'id': category.id}) }}" class="btn btn-success btn-sm me-1">
+                    <i class="fas fa-pencil-alt"></i> Editer
+                </a>
+                {{ include('/admin/category/_delete_form.html.twig') }}
+            </div>
+            <h2 class="card-title">{{ category.title }}</h2>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped m-0">
+                <tbody>
+                    <tr>
+                        <th class="w-25">Id</th>
+                        <td>{{ category.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Titre</th>
+                        <td>{{ category.title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Slug</th>
+                        <td>{{ category.slug }}</td>
+                    </tr>
+                    <tr>
+                        <th>Catégorie parente</th>
+                        <td>
+                            {% if category.parent %}
+                                <a href="{{ path('app_admin_category_show', {id: category.parent.id}) }}">{{ category.parent }}</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ category.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Position</th>
+                        <td>{{ category.position }}</td>
+                    </tr>
+                    <tr>
+                        <th>Sous catégories</th>
+                        <td>
+                            {% if category.subCategories is not empty %}
+                                <ul>
+                                    {% for subCategory in category.subCategories %}
+                                        <li>
+                                            <a href="{{ path('app_admin_category_show', {id: subCategory.id}) }}">{{ subCategory }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+    </div>
+{% endblock %}

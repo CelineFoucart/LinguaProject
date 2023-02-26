@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil |
+	{{ parent() }}
+{% endblock %}
+
+{% block header %}
+	<header class="header">
+        <h1>La langue de la Románia</h1>
+        <p>Initiation au roman</p>
+    </header>
+{% endblock %}
+
+{% block body %}
+	<article>
+		<p>
+			<strong>Lorem ipsum</strong>
+			dolor sit, amet consectetur adipisicing elit. Velit odit repellendus maiores error rerum numquam magnam labore amet. Aspernatur ut delectus nam quidem vitae necessitatibus modi ex accusantium et reprehenderit! Eligendi possimus esse reiciendis facere optio eius eaque, inventore deleniti? Eveniet corporis laboriosam deleniti vero a quos dignissimos culpa, inventore quia ipsam maxime excepturi atque ipsa accusamus delectus. Labore, nesciunt! Adipisci saepe quasi nam, ex ducimus temporibus recusandae sint eos possimus assumenda! Tempora sequi nesciunt labore distinctio porro! Nam amet unde pariatur velit non earum quaerat aliquid, nesciunt deleniti repellendus?</p>
+		<p>Aliquid illum blanditiis totam nobis voluptatibus quasi, dolorum voluptate odio vero iusto ex molestias reiciendis magni, nihil corrupti? Accusamus veniam nulla neque aperiam aspernatur pariatur veritatis recusandae architecto repellat vero! Fuga ratione consequatur, rerum tenetur porro debitis error ipsum. Totam officia nihil reprehenderit saepe! Quasi earum cupiditate voluptas harum unde, at voluptatum nihil tempore autem rerum. Perferendis ab corporis sed?
+		</p>
+
+		<h2 class="text-center fw-bold h1 mt-5">Consulter les sections</h2>
+		<div id="container-fluid">
+
+			<div class="row">
+				{% for item in range(1, 9) %}
+                    <div class="col-4 pt-2">
+                        <div class="category__item">
+                            <div class="item">
+                                <div class="item__body">
+                                    <div class="item__title">Catégorie {{item}}</div>
+                                    <div class="item__description">
+                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi eaque maiores.</p>
+                                        <p class="text-end">
+                                            <a href="#" class="text-decoration-none">Voir »</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+			</div>
+		</div>
+	</article>
+{% endblock %}

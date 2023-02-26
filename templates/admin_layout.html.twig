@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Administration{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		<link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('assets/fontawesome-free/css/all.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('assets/choicesjs/choices.min.css') }}">
+		<link href="{{ asset('assets/simple-datatables/datatable.css') }}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{{ asset('assets/admin/admin.css') }}">
+	</head>
+	<body class="bg-light">
+		{% include "admin/components/_sidebar.html.twig" %}
+
+		<div class="wrapper">
+		{% include "admin/components/_navbar.html.twig" %}
+
+			<div class="container-fluid mt-2">
+				<div class="row my-3">
+					<div class="col-md-6 col-lg-8">
+						<header>
+							<h1 class="fs-2">{% block page_title %}Administration{% endblock %}</h1>
+						</header>
+					</div>
+					
+					<div class="col-md-6 col-lg-4">
+						{% block breadcrumb_items %}{% endblock %}
+					</div>
+				</div>
+			</div>
+
+			<main class="container-fluid">
+				{% block body %}{% endblock %}
+			</main>
+		</div>
+
+		<script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+		<script src="{{ asset('assets/choicesjs/choices.min.js') }}"></script>
+		<script src="{{ asset('assets/simple-datatables/simple-datatables.min.js') }}" type="text/javascript"></script>
+		<script src="{{ asset('assets/admin/admin.js') }}"></script>
+		{% block javascripts %}{% endblock %}
+	</body>
+</html>

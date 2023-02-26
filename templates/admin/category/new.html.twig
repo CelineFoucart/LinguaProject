@@ -1,0 +1,26 @@
+{% extends 'admin_layout.html.twig' %}
+
+{% block title %}Créer une catégorie{% endblock %}
+
+{% block page_title %}Créer une catégorie{% endblock %}
+
+{% block breadcrumb_items %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb justify-content-end">
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_category_index') }}">Catégories</a></li>
+            <li class="breadcrumb-item active">Créer</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Nouvelle categorie</h2>
+        </div>
+        <div class="card-body">
+            {{ include('/admin/category/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

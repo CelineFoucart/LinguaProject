@@ -1,0 +1,88 @@
+{% extends 'admin_layout.html.twig' %}
+
+{% block title %}Liste des catégories{% endblock %}
+
+{% block page_title %}Catégories{% endblock %}
+
+{% block breadcrumb_items %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb justify-content-end">
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Catégories</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-header">
+        <div class="float-end">
+            <a href="{{ path('app_admin_category_new') }}" class="btn btn-light btn-sm border"><i class="fas fa-plus-circle"></i> Ajouter</a>
+        </div>
+        <h2 class="card-title">Listes des categories</h2>
+        
+    </div>
+    <div class="card-body p-0">
+        <table id="table" class="table table-striped sortable">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Titre</th>
+                    <th>Position</th>
+                    <th>Parent</th>
+                    <th data-sortable="false">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.title }}</td>
+                    <td>{{ category.position }}</td>
+                    <td>{{ category.parent ? category.parent : '-' }}</td>
+                    <td>
+                        <a href="{{ path('app_admin_category_show', {'id': category.id}) }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-eye"></i> Voir
+                        </a>
+                        <a href="{{ path('app_admin_category_edit', {'id': category.id}) }}" class="btn btn-success btn-sm">
+                            <i class="fas fa-pencil-alt"></i> Editer
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucun résultat</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('assets/sortable/Sortable.min.js') }}"></script>
+<script>
+    const dataTable = new simpleDatatables.DataTable("#table", {
+        sortable: false,
+        labels: {
+            placeholder: "Rechercher...",
+            searchTitle: "Rechercher",
+            perPage: "catégories par page",
+            noRows: "Aucune catégorie",
+            info: "De {start} à {end} sur {rows} catégories",
+        },
+        classes: {
+            active: "active",
+            disabled: "disabled",
+            search: "datatable-search",
+            paginationList: "pagination",
+            paginationListItem: "page-item",
+            paginationListItemLink: "page-link"
+        }
+    });
+
+    let url = "{{ path('app_api_category_position') }}";
+	sortable('.sortable tbody', url);
+</script>
+{% endblock %}

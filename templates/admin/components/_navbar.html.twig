@@ -1,0 +1,41 @@
+<nav class="navbar bg-white navbar-white navbar-expand-md navbar-light border-bottom">
+    <div class="container-fluid">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_home') }}">Accueil</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-bs-toggle="dropdown" href="#">
+                    <i class="fas fa-user mr-1"></i> {{ app.user.username }}
+                    <i class="fas fa-caret-down ml-1"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end user-menu">
+                    <div class="dropdown-item">
+                        <div class="d-flex align-items-start">
+                            <div class="bg-light rounded d-flex justify-content-center align-items-center mr-2"
+                                style="height: 48px; width: 48px;">
+                                <div class="h5 text-muted m-0"><i class="fas fa-user"></i></div>
+                            </div>
+                            <div>
+                                <p class="text-muted mb-0 ms-1">Vous êtes connecté en tant que</p>
+                                <h3 class="dropdown-item-title mt-1 font-weight-bold h6 ms-1">
+                                    {{ app.user.username }}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- User pseudo End -->
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-item dropdown-footer">
+                        <a href="{{ path('app_logout') }}" class="btn btn-light border btn-sm">
+                            <i class="fas fa-sign-out-alt"></i> Déconnexion
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

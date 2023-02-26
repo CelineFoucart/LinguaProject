@@ -1,0 +1,43 @@
+<aside class="sidebar d-flex flex-column flex-shrink-0 text-white">
+    <a href="{{ path('app_admin_dashboard') }}" class="sidebar-main-brand text-white">
+        <span class="fs-4"><i class="fas fa-cogs me-1"></i> <span class="sidebar-title">Administration</span></span>
+    </a>
+    <hr>
+    <ul class="nav flex-column mb-auto">
+        <li class="nav-item {{ activeDashboard is defined ? 'active' : '' }}">
+            <a href="{{ path('app_admin_dashboard') }}" class="nav-link">
+                <i class="icon fas fa-tachometer-alt"></i> <span class="sidebar-title">Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item {{ activeCategory is defined ? 'active' : '' }}">
+            <a href="{{ path('app_admin_category_index') }}" class="nav-link">
+                <i class="icon fas fa-tags"></i> <span class="sidebar-title">Catégories</span>
+            </a>
+        </li>
+        <li class="nav-item {{ activeArticle is defined ? 'active' : '' }}">
+            <a href="#" class="nav-link">
+                <i class="icon fas fa-book"></i> <span class="sidebar-title">Articles</span>
+            </a>
+        </li>     
+        <li class="nav-item {{ activeDocument is defined ? 'active' : '' }}">
+            <a href="#" class="nav-link">
+                <i class="icon fas fa-file-pdf"></i> <span class="sidebar-title">Fichiers</span>
+            </a>
+        </li>   
+        <li class="nav-item {{ activePage is defined ? 'active' : '' }}">
+            <a href="#" class="nav-link">
+                <i class="icon fas fa-file-alt"></i> <span class="sidebar-title">Pages</span>
+            </a>
+        </li>
+        <li class="nav-item {{ activeUser is defined ? 'active' : '' }}">
+            <a href="#" class="nav-link">
+                <i class="icon fas fa-users"></i> <span class="sidebar-title">Membres</span>
+            </a>
+        </li>
+        <li class="nav-item {{ activeSettings is defined ? 'active' : '' }}">
+            <a href="#" class="nav-link">
+                <i class="icon fas fa-cogs"></i> <span class="sidebar-title">Configurations</span>
+            </a>
+        </li>
+    </ul>
+</aside>
