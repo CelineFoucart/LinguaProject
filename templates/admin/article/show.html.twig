@@ -18,7 +18,7 @@
     <div class="card">
         <div class="card-header">
             <div class="float-end">
-                <a href="{{ path('app_admin_article_edit', {'id': article.id}) }}" class="btn btn-success btn-sm me-1">
+                <a href="{{ path('app_admin_article_edit', {'id': article.id}) }}" class="btn btn-success btn-sm me-1" title="Editer">
                     <i class="fas fa-pencil-alt"></i> Editer
                 </a>
                 {{ include('/admin/article/_delete_form.html.twig') }}
@@ -66,5 +66,56 @@
                 </tbody>
             </table>
         </div> 
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-header">
+            <div class="float-end">
+                <a href="{{ path('app_document_admin_new', {id: article.id}) }}" class="btn btn-primary btn-sm border" title="Ajouter un document">
+                    <i class="fas fa-plus-circle"></i> Document
+                </a>
+            </div>
+            <h2 class="card-title">Documents</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped m-0">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Fichier</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for document in article.documents %}
+                    <tr>
+                        <td>{{ document.id }}</td>
+                        <td>
+                            <a href="{{ vich_uploader_asset(document) }}" download>
+                                {{ document.title }}
+                            </a>
+                        </td>
+                        <td>
+                            {{ document.description }}
+                        </td>
+                        <td>
+                            <a href="{{ path('app_document_admin_show', {'id': document.id}) }}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-eye"></i> Voir
+                            </a>
+                            <a href="{{ path('app_document_admin_edit', {'id': document.id}) }}" class="btn btn-success btn-sm">
+                                <i class="fas fa-pencil-alt"></i> Editer
+                            </a>
+                            {{ include('/admin/document/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center">Aucun document</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}

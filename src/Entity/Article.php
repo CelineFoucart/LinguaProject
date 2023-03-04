@@ -8,6 +8,7 @@ use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
@@ -21,6 +22,11 @@ class Article
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2,
+        max: 255,
+    )]
     #[Groups(['index'])]
     private ?string $title = null;
 
@@ -29,6 +35,10 @@ class Article
     private ?string $slug = null;
 
     #[ORM\Column(length: 1000)]
+    #[Assert\Length(
+        min: 2,
+        max: 1000,
+    )]
     private ?string $presentation = null;
 
     #[ORM\Column(type: Types::TEXT)]

@@ -20,12 +20,12 @@
             </a>
         </li>     
         <li class="nav-item {{ activeDocument is defined ? 'active' : '' }}">
-            <a href="#" class="nav-link">
+            <a href="{{ path('app_document_admin_index') }}" class="nav-link">
                 <i class="icon fas fa-file-pdf"></i> <span class="sidebar-title">Fichiers</span>
             </a>
         </li>   
         <li class="nav-item {{ activePage is defined ? 'active' : '' }}">
-            <a href="#" class="nav-link">
+            <a href="{{ path('app_page_admin_index') }}" class="nav-link">
                 <i class="icon fas fa-file-alt"></i> <span class="sidebar-title">Pages</span>
             </a>
         </li>

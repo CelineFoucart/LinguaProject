@@ -1,0 +1,37 @@
+{% extends 'admin_layout.html.twig' %}
+
+{% block title %}Editer une page{% endblock %}
+
+{% block page_title %}Editer <strong>{{ page.title }}</strong>{% endblock %}
+
+{% block breadcrumb_items %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb justify-content-end">
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_page_admin_index') }}">Pages</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_page_admin_show', {id: page.id}) }}">{{ page.title }}</a></li>
+            <li class="breadcrumb-item active">Editer</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <div class="float-end">
+                {{ include('/admin/page/_delete_form.html.twig') }}
+            </div>
+            <h2 class="card-title">
+                Editer une page
+            </h2>
+        </div>
+        <div class="card-body">
+            {{ include('/admin/page/_form.html.twig', {'button_label': 'Modifier'}) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset("assets/ckeditor/ckeditor.js") }}"></script>
+    <script>CKEDITOR.replace( 'page_content' );</script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'admin_layout.html.twig' %}
+
+{% block title %}Créer une page{% endblock %}
+
+{% block page_title %}Créer une page{% endblock %}
+
+{% block breadcrumb_items %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb justify-content-end">
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_page_admin_index') }}">Pages</a></li>
+            <li class="breadcrumb-item active">Ajouter</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">
+                Créer une page
+            </h2>
+        </div>
+        <div class="card-body">
+            {{ include('/admin/page/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset("assets/ckeditor/ckeditor.js") }}"></script>
+    <script>CKEDITOR.replace( 'page_content' );</script>
+{% endblock %}

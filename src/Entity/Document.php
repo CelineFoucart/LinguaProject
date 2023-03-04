@@ -6,7 +6,9 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\DocumentRepository;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: DocumentRepository::class)]
 #[UniqueEntity('title')]
@@ -21,6 +23,11 @@ class Document
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2,
+        max: 255,
+    )]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
@@ -28,10 +35,15 @@ class Document
 
     /**
      * @Vich\UploadableField(mapping="document_files", fileNameProperty="filename")
+     * @var File
      */
-    private File $documentFile;
+    private $documentFile;
 
     #[ORM\Column(length: 1000, nullable: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 1000,
+    )]
     private ?string $description = null;
 
     #[ORM\Column]
@@ -121,7 +133,7 @@ class Document
         return $this;
     }
     
-    public function getDocumentFile(): File
+    public function getDocumentFile(): ?File
     {
         return $this->documentFile;
     }
@@ -135,5 +147,10 @@ class Document
         }
 
         return $this;
+    }
+
+    public function getFileInfo()
+    {
+        return pathinfo($this->filename);
     }
 }

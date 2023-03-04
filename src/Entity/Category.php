@@ -34,6 +34,10 @@ class Category
     private ?string $slug = null;
 
     #[ORM\Column(length: 1000, nullable: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 1000,
+    )]
     private ?string $description = null;
 
     #[ORM\Column(nullable: true)]

@@ -1,0 +1,28 @@
+{% extends 'admin_layout.html.twig' %}
+
+{% block title %}Ajouter un document{% endblock %}
+
+{% block page_title %}Ajouter un document{% endblock %}
+
+{% block breadcrumb_items %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb justify-content-end">
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_document_admin_index') }}">Document</a></li>
+            <li class="breadcrumb-item active">Créer</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">
+                Ajouter un document à <a href="{{ path('app_admin_article_show', {id: article.id}) }}">{{ article.title }}</a>
+            </h2>
+        </div>
+        <div class="card-body">
+            {{ include('/admin/document/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

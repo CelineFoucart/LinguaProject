@@ -1,0 +1,58 @@
+{% extends 'admin_layout.html.twig' %}
+
+{% block title %}Liste des pages{% endblock %}
+
+{% block page_title %}Pages{% endblock %}
+
+{% block body %}<div class="card">
+    <div class="card-header">
+        <div class="float-end">
+            <a href="{{ path('app_page_admin_new') }}" class="btn btn-light btn-sm border"><i class="fas fa-plus-circle"></i> Ajouter</a>
+        </div>
+        <h2 class="card-title">Liste des pages</h2>
+    </div>
+    <div class="card-body">
+        <table id="table" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Titre</th>
+                    <th>Lien</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for page in pages %}
+                <tr>
+                    <td>{{ page.id }}</td>
+                    <td>{{ page.title }}</td>
+                    <td>{{ page.slug }}</td>
+                    <td>
+                        <a href="{{ path('app_page_admin_show', {'id': page.id}) }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-eye"></i> Voir
+                        </a>
+                        <a href="{{ path('app_page_admin_edit', {'id': page.id}) }}" class="btn btn-success btn-sm">
+                            <i class="fas fa-pencil-alt"></i> Editer
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    $(document).ready(function () {
+        $('#table').DataTable({
+            pagingType: 'first_last_numbers',
+            language: {
+                url: '/assets/DataTables/i18n/fr-FR.json',
+            },
+        });
+    });
+</script>
+{% endblock %}
+

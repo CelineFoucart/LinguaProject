@@ -11,7 +11,7 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <h2 class="card-title">Administration du contenu</h2>
+                <h2 class="card-title">Gestion du contenu</h2>
             </div>
             <div class="card-body p-0">
                 <table class="table mb-0">
@@ -19,40 +19,78 @@
                         <tr>
                             <th style="width:40%" class="text-end text-muted py-3">Catégorie</th>
                             <td class="py-3">
-                                <a href="{{ path('app_admin_category_new') }}" class="text-decoration-none me-2">
-                                    <i class="fas fa-plus-circle" aria-hidden="true"></i>
-                                    Ajouter
-                                </a>
                                 <a href="{{ path('app_admin_category_index') }}" class="text-decoration-none">
                                     <i class="fas fa-list" aria-hidden="true"></i>
                                     Liste
+                                </a>
+                                <a href="{{ path('app_admin_category_new') }}" class="text-decoration-none me-2">
+                                    <i class="fas fa-plus-circle" aria-hidden="true"></i>
+                                    Ajouter
                                 </a>
                             </td>
                         </tr>
                         <tr>
                             <th class="text-end text-muted py-3">Article</th>
                             <td class="py-3">
-                                <a href="{{ path('app_admin_article_new') }}" class="text-decoration-none me-2">
-                                    <i class="fas fa-plus-circle" aria-hidden="true"></i>
-                                    Ajouter
-                                </a>
                                 <a href="{{ path('app_admin_article_index') }}" class="text-decoration-none">
                                     <i class="fas fa-list" aria-hidden="true"></i>
                                     Liste
+                                </a>
+                                <a href="{{ path('app_admin_article_new') }}" class="text-decoration-none me-2">
+                                    <i class="fas fa-plus-circle" aria-hidden="true"></i>
+                                    Ajouter
                                 </a>
                             </td>
                         </tr>
                         <tr>
                             <th class="text-end text-muted py-3">Fichier</th>
-                            <td class="py-3"></td>
+                            <td class="py-3">
+                                <a href="{{ path('app_document_admin_index') }}" class="text-decoration-none">
+                                    <i class="fas fa-list"></i> 
+                                    Liste
+                                </a>
+                            </td>
                         </tr>
                         <tr>
                             <th class="text-end text-muted py-3">Page</th>
-                            <td class="py-3"></td>
+                            <td class="py-3">
+                                <a href="{{ path('app_page_admin_index') }}" class="text-decoration-none">
+                                    <i class="fas fa-list" aria-hidden="true"></i>
+                                    Liste
+                                </a>
+                                <a href="{{ path('app_page_admin_new') }}" class="text-decoration-none me-2">
+                                    <i class="fas fa-plus-circle" aria-hidden="true"></i>
+                                    Ajouter
+                                </a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div> 
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2 class="card-title">Administration et configuration</h2>
+            </div>
+            <div class="card-body">
+                <table class="table mb-0">
+                    <tbody>
+                        <tr>
+                            <th class="text-end text-muted py-3">Membres</th>
+                            <td class="py-3"></td>
+                        </tr>
+                        <tr>
+                            <th class="text-end text-muted py-3">Sauvegardes</th>
+                            <td class="py-3"></td>
+                        </tr>
+                        <tr>
+                            <th class="text-end text-muted py-3">Configurations</th>
+                            <td class="py-3"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div class="col-md-6"></div>

@@ -2,14 +2,14 @@
 
 namespace App\Form;
 
-use App\Entity\Article;
+use App\Entity\Page;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class ArticleType extends AbstractType
+class PageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -17,18 +17,8 @@ class ArticleType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => 'Titre*'
             ])
-            ->add('presentation', TextareaType::class, [
-                'label' => 'Courte présentation*',
-                'help' => 'Ecrivez une courte présentation de moins de 1000 caractères'
-            ])
             ->add('content', TextareaType::class, [
-                'label' => 'Corps de l\'article*',
-            ])
-            ->add('category', null, [
-                'label' => 'Catégorie*',
-                'attr' => [
-                    'data-choices' => 'choices',
-                ],
+                'label' => 'Contenu*',
             ])
         ;
     }
@@ -36,7 +26,7 @@ class ArticleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Article::class,
+            'data_class' => Page::class,
         ]);
     }
 }
