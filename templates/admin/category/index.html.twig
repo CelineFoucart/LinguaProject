@@ -19,18 +19,18 @@
         <div class="float-end">
             <a href="{{ path('app_admin_category_new') }}" class="btn btn-light btn-sm border"><i class="fas fa-plus-circle"></i> Ajouter</a>
         </div>
-        <h2 class="card-title">Listes des categories</h2>
+        <h2 class="card-title">Liste des categories</h2>
         
     </div>
-    <div class="card-body p-0">
-        <table id="table" class="table table-striped sortable">
+    <div class="card-body">
+        <table id="table" class="table sortable-table">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Titre</th>
                     <th>Position</th>
                     <th>Parent</th>
-                    <th data-sortable="false">Actions</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,10 +49,6 @@
                         </a>
                     </td>
                 </tr>
-            {% else %}
-                <tr>
-                    <td colspan="3">Aucun résultat</td>
-                </tr>
             {% endfor %}
             </tbody>
         </table>
@@ -63,26 +59,17 @@
 {% block javascripts %}
 <script src="{{ asset('assets/sortable/Sortable.min.js') }}"></script>
 <script>
-    const dataTable = new simpleDatatables.DataTable("#table", {
-        sortable: false,
-        labels: {
-            placeholder: "Rechercher...",
-            searchTitle: "Rechercher",
-            perPage: "catégories par page",
-            noRows: "Aucune catégorie",
-            info: "De {start} à {end} sur {rows} catégories",
-        },
-        classes: {
-            active: "active",
-            disabled: "disabled",
-            search: "datatable-search",
-            paginationList: "pagination",
-            paginationListItem: "page-item",
-            paginationListItemLink: "page-link"
-        }
+    $(document).ready(function () {
+        $('#table').DataTable({
+            paging: false,
+            ordering:  false,
+            language: {
+                url: '/assets/DataTables/i18n/fr-FR.json',
+            },
+        });
     });
 
     let url = "{{ path('app_api_category_position') }}";
-	sortable('.sortable tbody', url);
+	sortable('.sortable-table tbody', url);
 </script>
 {% endblock %}

@@ -2,24 +2,30 @@
 
 namespace App\Entity;
 
-use App\Repository\ArticleRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ArticleRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
+#[UniqueEntity('title')]
 class Article
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['index'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['index'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['index'])]
     private ?string $slug = null;
 
     #[ORM\Column(length: 1000)]
@@ -29,15 +35,18 @@ class Article
     private ?string $content = null;
 
     #[ORM\Column]
+    #[Groups(['index'])]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Groups(['index'])]
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
     private ?User $author = null;
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
+    #[Groups(['index'])]
     private ?Category $category = null;
 
     #[ORM\OneToMany(mappedBy: 'article', targetEntity: Document::class, orphanRemoval: true)]

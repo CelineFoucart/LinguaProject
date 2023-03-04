@@ -72,7 +72,7 @@ class CategoryAdminController extends AbstractController
             $category->setSlug($slug);
             $categoryRepository->save($category, true);
 
-            return $this->redirectToRoute('app_admin_category_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_category_show', ['id' => $category->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('/admin/category/edit.html.twig', [

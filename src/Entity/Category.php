@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[UniqueEntity('title')]
@@ -16,6 +17,7 @@ class Category
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['index'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -24,9 +26,11 @@ class Category
         min: 2,
         max: 255,
     )]
+    #[Groups(['index'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['index'])]
     private ?string $slug = null;
 
     #[ORM\Column(length: 1000, nullable: true)]

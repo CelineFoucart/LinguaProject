@@ -2,11 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\DocumentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\DocumentRepository;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: DocumentRepository::class)]
+#[UniqueEntity('title')]
+/**
+ * @Vich\Uploadable
+ */
 class Document
 {
     #[ORM\Id]
@@ -19,6 +25,11 @@ class Document
 
     #[ORM\Column(length: 255)]
     private ?string $filename = null;
+
+    /**
+     * @Vich\UploadableField(mapping="document_files", fileNameProperty="filename")
+     */
+    private File $documentFile;
 
     #[ORM\Column(length: 1000, nullable: true)]
     private ?string $description = null;
@@ -106,6 +117,22 @@ class Document
     public function setArticle(?Article $article): self
     {
         $this->article = $article;
+
+        return $this;
+    }
+    
+    public function getDocumentFile(): File
+    {
+        return $this->documentFile;
+    }
+    
+    public function setDocumentFile(?File $documentFile): self
+    {
+        $this->documentFile = $documentFile;
+
+        if ($documentFile) {
+            $this->updatedAt = new \DateTime('now');
+        }
 
         return $this;
     }

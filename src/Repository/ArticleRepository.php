@@ -39,28 +39,39 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Article[] Returns an array of Article objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Article[] Returns an array of Article objects
+     */
+    public function searchPaginatedItems(array $parameters): array
+    {
+        $builder = $this->createQueryBuilder('a')->leftJoin('a.category', 'c')->addSelect('c');
 
-//    public function findOneBySomeField($value): ?Article
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        if (isset($parameters['search']['value']) && strlen($parameters['search']['value']) > 1) {
+            $builder->andWhere('a.title = :title')->setParameter('title', $parameters['search']['value']);
+        }
+
+        $limit = isset($parameters['length']) ? (int)$parameters['length'] : 10;
+        $builder->setMaxResults($limit);
+
+        $orderColumns = isset($parameters['order'][0]['column']) ? (int)$parameters['order'][0]['column'] : 0;
+        $direction = isset($parameters['order'][0]['dir']) ? $parameters['order'][0]['dir'] : 'asc';
+        
+        $orderBy = isset($parameters['columns'][$orderColumns]['name']) ? $parameters['columns'][$orderColumns]['name'] : 'a.id';
+            
+        $builder->orderBy($orderBy, $direction);
+
+        return $builder->getQuery()->getResult();
+    }
+
+    public function countSearchTotal(array $parameters): array
+    {
+        $builder = $this->createQueryBuilder('a')
+            ->select('COUNT(a.id) AS recordsFiltered');
+
+        if (isset($parameters['search']['value']) && strlen($parameters['search']['value']) > 1) {
+            $builder->andWhere('a.title = :title')->setParameter('title', $parameters['search']['value']);
+        }
+
+        return $builder->getQuery()->getOneOrNullResult();
+    }
 }

@@ -31,7 +31,16 @@
                         </tr>
                         <tr>
                             <th class="text-end text-muted py-3">Article</th>
-                            <td class="py-3"></td>
+                            <td class="py-3">
+                                <a href="{{ path('app_admin_article_new') }}" class="text-decoration-none me-2">
+                                    <i class="fas fa-plus-circle" aria-hidden="true"></i>
+                                    Ajouter
+                                </a>
+                                <a href="{{ path('app_admin_article_index') }}" class="text-decoration-none">
+                                    <i class="fas fa-list" aria-hidden="true"></i>
+                                    Liste
+                                </a>
+                            </td>
                         </tr>
                         <tr>
                             <th class="text-end text-muted py-3">Fichier</th>
