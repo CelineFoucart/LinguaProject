@@ -1,0 +1,52 @@
+{% extends 'admin_layout.html.twig' %}
+
+{% block title %}Editer les informations d'un utilisateur{% endblock %}
+
+{% block page_title %}Editer <strong>{{ user.username }}</strong>{% endblock %}
+
+{% block breadcrumb_items %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb justify-content-end">
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_user_admin_index') }}">Membres</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_user_admin_show', {id: user.id}) }}">{{ user.username }}</a></li>
+            <li class="breadcrumb-item active">Editer</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <div class="float-end">
+                {% if is_granted('DELETE', user) %}
+                    {{ include('/admin/user/_delete_form.html.twig') }}
+                {% endif %}
+            </div>
+            <h2 class="card-title">
+                Editer les informations d'un utilisateur
+            </h2>
+        </div>
+        <div class="card-body">
+            {{ include('admin/user/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        const buttonFirst = document.querySelector('#password-first');
+        if (buttonFirst) {
+            buttonFirst.addEventListener('click', (e) => {
+                const first = document.querySelector('#user_plainPassword_first');
+            })
+        }
+
+        const buttonSecond = document.querySelector('#password-second');
+        if (buttonSecond) {
+            buttonSecond.addEventListener('click', (e) => {
+                const second = document.querySelector('#user_plainPassword_second');
+            })
+        }
+    </script>
+{% endblock %}

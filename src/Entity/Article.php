@@ -42,6 +42,7 @@ class Article
     private ?string $presentation = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
     private ?string $content = null;
 
     #[ORM\Column]

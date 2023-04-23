@@ -29,7 +29,7 @@
                     <td>{{ document.title }}</td>
                     <td>{{ document.filename }}</td>
                     <td>
-                        <a href="{{ path('app_admin_article_show', {id: article.id}) }}">{{ article.title }}</a>
+                        <a href="{{ path('app_admin_article_show', {id: document.article.id}) }}">{{ document.article.title }}</a>
                     </td>
                     <td>{{ document.createdAt ? document.createdAt|date('d/m/Y H:i') : '' }}</td>
                     <td>{{ document.updatedAt ? document.updatedAt|date('d/m/Y H:i') : '' }}</td>

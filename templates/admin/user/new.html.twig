@@ -1,0 +1,28 @@
+{% extends 'admin_layout.html.twig' %}
+
+{% block title %}Ajouter un compte utilisateur{% endblock %}
+
+{% block page_title %}Ajouter un compte utilisateur{% endblock %}
+
+{% block breadcrumb_items %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb justify-content-end">
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_user_admin_index') }}">Membres</a></li>
+            <li class="breadcrumb-item active">Ajouter</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">
+                Créer un compte utilisateur
+            </h2>
+        </div>
+        <div class="card-body">
+            {{ include('admin/user/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

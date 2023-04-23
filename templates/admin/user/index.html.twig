@@ -1,0 +1,76 @@
+{% extends 'admin_layout.html.twig' %}
+
+{% block title %}Liste des membres{% endblock %}
+
+{% block page_title %}Membres{% endblock %}
+
+{% block body %}
+{% for message in app.flashes('error') %}
+    <div class="alert alert-danger">
+        <p>{{ message }}</p>
+    </div>
+{% endfor %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        <p>{{ message }}</p>
+    </div>
+{% endfor %}
+
+<div class="card">
+    <div class="card-header">
+        <div class="float-end">
+            <a href="{{ path('app_user_admin_new') }}" class="btn btn-light btn-sm border"><i class="fas fa-plus-circle"></i> Ajouter</a>
+        </div>
+        <h2 class="card-title">Liste des membres</h2>
+    </div>
+    <div class="card-body">
+        <table id="table" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Pseudo</th>
+                    <th>Email</th>
+                    <th>Rôles</th>
+                    <th>Inscription</th>
+                    <th data-orderable="false">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles|join(', ') }}</td>
+                    <td>{{ user.createdAt|date('d/m/Y H:i') }}</td>
+                    <td>
+                        <a href="{{ path('app_user_admin_show', {'id': user.id}) }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-eye"></i> Voir
+                        </a>
+                        {% if is_granted('EDIT', user) %}
+                            <a href="{{ path('app_user_admin_edit', {'id': user.id}) }}" class="btn btn-success btn-sm">
+                                <i class="fas fa-pencil-alt"></i> Editer
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    $(document).ready(function () {
+        $('#table').DataTable({
+            pagingType: 'first_last_numbers',
+            language: {
+                url: '/assets/DataTables/i18n/fr-FR.json',
+            },
+        });
+    });
+</script>
+{% endblock %}
+
