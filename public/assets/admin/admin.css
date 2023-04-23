@@ -98,6 +98,22 @@ h1 {
     font-weight: 400;
 }
 
+.nav-pills .nav-link.active {
+    background-color: #17a2b8;
+}
+
+.nav.nav-pills {
+    box-shadow: 0 0 1px rgb(0 0 0 / 8%), 0 1px 3px rgb(0 0 0 / 13%);
+}
+
+.nav-pills .nav-link {
+    color: #6c757d;
+}
+
+.nav-link:hover {
+    color: #17a2b8;
+}
+
 .card {
     box-shadow: 0 0 1px rgb(0 0 0 / 8%), 0 1px 3px rgb(0 0 0 / 13%);
     border-top: 3px solid #17a2b8;
