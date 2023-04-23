@@ -1,0 +1,85 @@
+{% extends 'admin_layout.html.twig' %}
+
+{% block title %}Sauvegardes de la base de données{% endblock %}
+
+{% block page_title %}Sauvegardes de la base de données{% endblock %}
+
+{% block breadcrumb_items %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb justify-content-end">
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Sauvegarde</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <div class="card">
+        <div class="card-header">
+            <div class="float-end">
+                <a href="{{ path('app_backup_admin_create') }}" class="btn btn-light btn-sm border">
+                    <i class="fas fa-plus-circle"></i> Ajouter
+                </a>
+            </div>
+            <h2 class="card-title">Liste des sauvegardes</h2>
+            
+        </div>
+        <div class="card-body">
+            <table id="table" class="table sortable-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Fichier</th>
+                        <th>Date</th>
+                        <th data-orderable="false">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for backup in backups %}
+                    <tr>
+                        <td>{{ backup.id }}</td>
+                        <td>{{ backup.filename }}</td>
+                        <td>{{ backup.createdAt|date('d/m/Y H:i') }}</td>
+                        <td>
+                            <a href="{{ path('app_backup_admin_show', {'id': backup.id}) }}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-eye"></i> Voir
+                            </a>
+                            <a href="{{ path('app_backup_admin_download', {'id': backup.id}) }}" class="btn btn-success btn-sm">
+                                <i class="fas fa-download"></i> Télécharger
+                            </a>
+                            {{ include('/admin/backup/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('assets/sortable/Sortable.min.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        $('#table').DataTable({
+            paging: false,
+            ordering:  false,
+            language: {
+                url: '/assets/DataTables/i18n/fr-FR.json',
+            },
+        });
+    });
+</script>
+{% endblock %}
+

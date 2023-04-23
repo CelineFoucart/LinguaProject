@@ -103,6 +103,7 @@ class ArticleAdminController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
             $articleRepository->remove($article, true);
+            $this->addFlash('success', "L'article a été supprimé.");
         }
 
         return $this->redirectToRoute('app_admin_article_index', [], Response::HTTP_SEE_OTHER);

@@ -4,7 +4,18 @@
 
 {% block page_title %}Pages{% endblock %}
 
-{% block body %}<div class="card">
+{% block body %}
+{% for message in app.flashes('error') %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+<div class="card">
     <div class="card-header">
         <div class="float-end">
             <a href="{{ path('app_page_admin_new') }}" class="btn btn-light btn-sm border"><i class="fas fa-plus-circle"></i> Ajouter</a>

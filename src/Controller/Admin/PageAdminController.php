@@ -85,6 +85,8 @@ class PageAdminController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$page->getId(), $request->request->get('_token'))) {
             $pageRepository->remove($page, true);
+
+            $this->addFlash('success', "La page a été supprimée.");
         }
 
         return $this->redirectToRoute('app_page_admin_index', [], Response::HTTP_SEE_OTHER);
