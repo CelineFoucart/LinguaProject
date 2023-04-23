@@ -116,6 +116,48 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6"></div>
+    <div class="col-md-6">
+        <div class="card card-info">
+            <div class="card-body">
+                <h2 class="fw-normal m-0 p-0">
+                    <strong>{{ stats.article }}</strong>
+                </h2>
+                <p class="mt-2 mb-0 h5">Article{{ stats.article > 1 ? 's' : '' }}</p>
+            </div>
+            <div class="card-footer text-end">
+                <a href="{{ path('app_admin_article_index') }}" class="text-decoration-none fw-bold text-white">
+                    Voir plus <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="card card-info mt-2">
+            <div class="card-body">
+                <h2 class="fw-normal m-0 p-0">
+                    <strong>{{ stats.category }}</strong>
+                </h2>
+                <p class="mt-2 mb-0 h5">Catégorie{{ stats.category > 1 ? 's' : '' }}</p>
+            </div>
+            <div class="card-footer text-end">
+                <a href="{{ path('app_admin_category_index') }}" class="text-decoration-none fw-bold text-white">
+                    Voir plus <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="card card-info mt-2">
+            <div class="card-body">
+                <h2 class="fw-normal m-0 p-0">
+                    <strong>{{ stats.document }}</strong>
+                </h2>
+                <p class="mt-2 mb-0 h5">Document{{ stats.document > 1 ? 's' : '' }}</p>
+            </div>
+            <div class="card-footer text-end">
+                <a href="{{ path('app_document_admin_index') }}" class="text-decoration-none fw-bold text-white">
+                    Voir plus <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

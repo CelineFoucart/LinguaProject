@@ -5,17 +5,26 @@ namespace App\Controller\Admin;
 use App\Entity\Settings;
 use App\Form\SettingsType;
 use App\Repository\SettingsRepository;
+use App\Service\Statistics\SatisticsEntity;
+use App\Service\Statistics\StatisticsHandler;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 class DashboardController extends AbstractController
 {
     #[Route('/admin', name: 'app_admin_dashboard')]
-    public function index(): Response
+    public function index(StatisticsHandler $statisticsHandler): Response
     {
-        return $this->render('admin/dashboard.html.twig', ['activeDashboard' => true]);
+        $stats = $statisticsHandler
+            ->addEntity(new SatisticsEntity('article'))
+            ->addEntity(new SatisticsEntity('category'))
+            ->addEntity(new SatisticsEntity('document'))
+            ->getStatistics()
+        ;
+        
+        return $this->render('admin/dashboard.html.twig', ['activeDashboard' => true, 'stats' => $stats]);
     }
 
     #[Route('/admin/settings', name: 'app_admin_settings')]

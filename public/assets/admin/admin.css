@@ -172,3 +172,8 @@ h1 {
     background-color: #f8d7da;
     border-color: #f5c2c7;
 }
+
+.card-info {
+    background: #17a2b8;
+    color: #fff;
+}
