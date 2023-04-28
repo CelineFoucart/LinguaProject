@@ -177,3 +177,7 @@ h1 {
     background: #17a2b8;
     color: #fff;
 }
+
+.vich-image img {
+    max-width: 100%;
+}

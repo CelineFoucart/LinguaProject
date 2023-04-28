@@ -24,6 +24,11 @@
                 </button>
             </li>
             <li class="nav-item" role="presentation">
+                <button class="nav-link" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab" aria-controls="about" aria-selected="true">
+                    Page à propos
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
                 <button class="nav-link" id="images-tab" data-bs-toggle="tab" data-bs-target="#images" type="button" role="tab" aria-controls="images" aria-selected="false">
                     Bannière et logo
                 </button>
@@ -41,6 +46,15 @@
                             <div class="col-md-6">{{ form_row(form.languageOriginalName) }}</div>
                         </div>
                         {{ form_row(form.languageDescription) }}
+                    </div> 
+                </div>
+            </div>
+            <div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Contenu de la page à propos</h2>
+                    </div>
+                    <div class="card-body">
                         {{ form_row(form.languageAbout) }}
                     </div> 
                 </div>
@@ -82,5 +96,5 @@
 
 {% block javascripts %}
     <script src="{{ asset("assets/ckeditor/ckeditor.js") }}"></script>
-    <script>CKEDITOR.replace( 'settings_languageAbout' );</script>
+    <script>CKEDITOR.replace( 'settings_languageDescription' ); CKEDITOR.replace( 'settings_languageAbout' );</script>
 {% endblock %}

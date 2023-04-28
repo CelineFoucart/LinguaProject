@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}A propos |
+	{{ parent() }}
+{% endblock %}
+
+{% block header %}
+	<header class="header">
+		<div class="container">
+			<div class="text-end">
+				<p class="mb-0 text-decoration-underline">A propos</p>
+				<h1 class="display-3 mt-0">{{ settings.languageTranslatedName }}</h1>
+				<p class="fs-5 fst-italic">{{ settings.languageOriginalName }}</p>
+			</div>
+		</div>
+	</header>
+
+	
+{% endblock %}
+
+{% block body %}
+	<article>
+		{{ settings.languageAbout|raw }}
+	</article>
+{% endblock %}

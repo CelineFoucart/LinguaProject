@@ -21,12 +21,10 @@ class Settings
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message:"Ce champ ne peut être vide.")]
+    #[Assert\NotBlank]
     #[Assert\Length(
         min: 2,
         max: 255,
-        minMessage: "Ce champ doit faire au moins 2 caractères.",
-        maxMessage: "Ce champ ne peut pas faire plus de 255 caractères."
     )]
     private ?string $languageTranslatedName = null;
 
@@ -34,21 +32,21 @@ class Settings
     #[Assert\Length(
         min: 2,
         max: 255,
-        minMessage: "Ce champ doit faire au moins 2 caractères.",
-        maxMessage: "Ce champ ne peut pas faire plus de 255 caractères."
     )]
     private ?string $languageOriginalName = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 1500, nullable: true)]
     #[Assert\Length(
         min: 2,
-        max: 255,
-        minMessage: "Ce champ doit faire au moins 2 caractères.",
-        maxMessage: "Ce champ ne peut pas faire plus de 255 caractères."
+        max: 1500,
     )]
     private ?string $languageDescription = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\Length(
+        min: 10,
+        max: 35000,
+    )]
     private ?string $languageAbout = null;
 
     #[ORM\Column(length: 255, nullable: true)]

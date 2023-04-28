@@ -24,11 +24,11 @@ class SettingsType extends AbstractType
                 'required' => false,
             ])
             ->add('languageDescription', TextareaType::class, [
-                'label' => 'Description rapide de la langue',
+                'label' => "Description rapide de la langue à afficher sur la page d'accueil",
                 'required' => false,
             ])
             ->add('languageAbout', TextareaType::class, [
-                'label' => 'Présentation de la langue',
+                'label' => 'Présentation longue de la langue',
                 'required' => false,
             ])
             ->add('bannerFile', VichImageType::class, [
@@ -36,13 +36,13 @@ class SettingsType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new Image([
-                        'maxWidth' => 1400,
-                        'minHeight' => 200,
-                        'maxWidthMessage' => "La largeur de l'image ne doit pas dépasser 1400 pixels.",
-                        'minHeightMessage' => "L'image doit fait au minimum 200 pixels de hauteur.",
+                        'maxWidth' => 1900,
+                        'minHeight' => 400,
+                        'maxWidthMessage' => "La largeur de l'image ne doit pas dépasser 1900 pixels.",
+                        'minHeightMessage' => "L'image doit fait au minimum 400 pixels de hauteur.",
                     ])
                 ],
-                'help' => "La bannière doit faire au maximum 1400 pixels de large et 200 pixels de hauteur.",
+                'help' => "La bannière doit faire au maximum 1400 pixels de large et au minimum 400 pixels de hauteur.",
             ])
             ->add('faviconFile', VichImageType::class, [
                 'label' => 'Logo du site',

@@ -2,26 +2,27 @@ html, body {
     height: 100vh;
 }
 
-body {
-    background-color: rgb(243 250 254);
-}
-
 .navbar {
-    box-shadow: 1px 1px 3px #c4c4c4;
-    background-color: #3087c9;
     width: 100%
 }
 
 /** PAGE */
 .main, .login-card {
     background-color: #fff;
+    overflow: hidden;
+}
+
+.login-card {
     border: 1px solid rgba(0, 0, 0, .125);
     box-shadow: 0 15px 35px #3232321a, 0 5px 15px #0000001a;
-    overflow: hidden;
 }
 
 .main {
     margin-top: 48px;
+}
+
+.container {
+    padding: 0;
 }
 
 .card {
@@ -35,30 +36,38 @@ body {
     font-family: georgia, serif;
     font-weight: bold;
     text-align: center;
-    background-color: rgb(227 243 253);
-    border-radius: 10px;
-    margin: 30px 20px 20px;
-    box-shadow: 1px 1px 12px #aaa;
+    background: rgb(90 90 90);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, .05);
     padding: 5px 0;
+    color: #F8F9FA;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.header h1 {
-    font-weight: 700;
-    font-size: 3rem;
+.home-header h1, .header h1 {
     line-height: 1.2;
     margin-bottom: 1rem;
     margin-top: 1rem;
-    color: #073b60;
 }
 
-.header p {
-    color: #30465a;
-    font-size: 1.2rem;
+.home-header p {
     font-style: italic;
 }
 
+.home-header {
+    height: 400px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    color: #F8F9FA;
+}
+
 h2, h3 {
-    color: #073b60;
+    color: rgb(90 90 90);
 }
 
 /** CAROUSEL */
@@ -76,7 +85,6 @@ h2, h3 {
 
 .item__body {
     padding: 25px;
-    background-color: rgb(227 243 253);
 }
 
 .item__body p {
@@ -87,7 +95,7 @@ h2, h3 {
     font-size: 24px;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #073b60;
+    color: rgb(90 90 90);
 }
 
 .item__description {

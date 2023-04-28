@@ -16,7 +16,7 @@
 	</head>
 	<body>
 		{% if is_login is not defined %}
-			<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
 				<div class="container-fluid">
 					<a class="navbar-brand" href="{{ path('app_home') }}">{{ app_name }}</a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,6 +26,9 @@
 						<ul class="navbar-nav">
 							<li class="nav-item">
 								<a class="nav-link {{ is_home is defined ? 'active' : '' }}" href="{{ path('app_home') }}">Accueil</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {{ is_about is defined ? 'active' : '' }}" href="{{ path('app_about') }}">A propos</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link {{ is_section is defined ? 'active' : '' }}" href="#">Sections</a>
@@ -51,10 +54,10 @@
 			</nav>
 		{% endif %}
 
-        <main class="container {{ is_login is not defined ? 'main' : '' }}">
-            {% block header %}{% endblock %}
+		{% block header %}{% endblock %}
 
-            <div class="h-100">
+        <main class="container p-0 {{ is_login is not defined ? 'main' : '' }}">
+            <div class="h-100 p-3">
                 {% block body %}{% endblock %}
             </div>
         </main>

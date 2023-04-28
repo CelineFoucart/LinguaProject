@@ -21,12 +21,10 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message:"Ce champ ne peut être vide.")]
+    #[Assert\NotBlank]
     #[Assert\Length(
         min: 2,
         max: 255,
-        minMessage: "Ce champ doit faire au moins 2 caractères.",
-        maxMessage: "Ce champ ne peut pas faire plus de 255 caractères."
     )]
     #[Groups(['index'])]
     private ?string $title = null;
@@ -39,8 +37,6 @@ class Category
     #[Assert\Length(
         min: 2,
         max: 1000,
-        minMessage: "Ce champ doit faire au moins 2 caractères.",
-        maxMessage: "Ce champ ne peut pas faire plus de 1000 caractères."
     )]
     private ?string $description = null;
 

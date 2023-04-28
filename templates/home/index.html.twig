@@ -5,35 +5,39 @@
 {% endblock %}
 
 {% block header %}
-	<header class="header">
-        <h1>La langue de la Románia</h1>
-        <p>Initiation au roman</p>
+    {% if settings.banner %}
+        {% set banner_file = vich_uploader_asset(settings, 'bannerFile') %}
+        {% set bg_header = 'background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(54, 54, 54, 0.3)),url("'~banner_file~'") center center / cover no-repeat;' %}
+    {% else %}
+        {% set bg_header = 'background:rgb(90 90 90)' %}
+    {% endif %}
+
+	<header class="home-header" style="{{bg_header}}">
+        <h1 class="display-1">{{ settings.languageTranslatedName }}</h1>
+        <p class="lead">{{ settings.languageOriginalName }}</p>
     </header>
 {% endblock %}
 
 {% block body %}
 	<article>
-		<p>
-			<strong>Lorem ipsum</strong>
-			dolor sit, amet consectetur adipisicing elit. Velit odit repellendus maiores error rerum numquam magnam labore amet. Aspernatur ut delectus nam quidem vitae necessitatibus modi ex accusantium et reprehenderit! Eligendi possimus esse reiciendis facere optio eius eaque, inventore deleniti? Eveniet corporis laboriosam deleniti vero a quos dignissimos culpa, inventore quia ipsam maxime excepturi atque ipsa accusamus delectus. Labore, nesciunt! Adipisci saepe quasi nam, ex ducimus temporibus recusandae sint eos possimus assumenda! Tempora sequi nesciunt labore distinctio porro! Nam amet unde pariatur velit non earum quaerat aliquid, nesciunt deleniti repellendus?</p>
-		<p>Aliquid illum blanditiis totam nobis voluptatibus quasi, dolorum voluptate odio vero iusto ex molestias reiciendis magni, nihil corrupti? Accusamus veniam nulla neque aperiam aspernatur pariatur veritatis recusandae architecto repellat vero! Fuga ratione consequatur, rerum tenetur porro debitis error ipsum. Totam officia nihil reprehenderit saepe! Quasi earum cupiditate voluptas harum unde, at voluptatum nihil tempore autem rerum. Perferendis ab corporis sed?
-		</p>
-
-		<h2 class="text-center fw-bold h1 mt-5">Consulter les sections</h2>
+		<div class="lead">{{ settings.languageDescription|raw }}</div>
+        <hr>
+		<h2 class="text-center h1 mt-5">Consulter les sections</h2>
 		<div id="container-fluid">
 
-			<div class="row">
-				{% for item in range(1, 9) %}
+			<div class="row mt-4">
+				{% for category in categories %}
                     <div class="col-4 pt-2">
-                        <div class="category__item">
-                            <div class="item">
+                        <div class="category__item position-relative">
+                            <div class="item border bg-light">
                                 <div class="item__body">
-                                    <div class="item__title">Catégorie {{item}}</div>
+                                    <div class="item__title">
+                                        <a href="" class="text-decoration-none text-reset stretched-link">
+                                            {{ category.title }} <i class="fas fa-fw fa-external-link-alt"></i>
+                                        </a>
+                                    </div>
                                     <div class="item__description">
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi eaque maiores.</p>
-                                        <p class="text-end">
-                                            <a href="#" class="text-decoration-none">Voir »</a>
-                                        </p>
+                                        <p>{{ category.description }}</p>
                                     </div>
                                 </div>
                             </div>
