@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles |
+	{{ parent() }}
+{% endblock %}
+
+{% block header %}
+	{% if settings.banner %}
+        {% set banner_file = vich_uploader_asset(settings, 'bannerFile') %}
+        {% set bg_header = 'background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(54, 54, 54, 0.3)),url("'~banner_file~'") center center / cover no-repeat;' %}
+    {% else %}
+        {% set bg_header = 'background:rgb(90 90 90)' %}
+    {% endif %}
+	<header class="header" style="{{bg_header}}">
+		<div class="container">
+			<div class="text-end">
+				<p class="mb-0 text-decoration-underline">Articles</p>
+				<h1 class="display-3 mt-0">{{ settings.languageTranslatedName }}</h1>
+				<p class="fs-5 fst-italic">{{ settings.languageOriginalName }}</p>
+			</div>
+		</div>
+	</header>
+{% endblock %}
+
+{% block body %}
+    <h2>Index des articles</h2>
+	<div class="row mt-3">
+	{% for article in articles %}
+        <div class="col-md-6 col-lg-4 d-flex">
+            <article class="item border bg-light flex-fill position-relative">
+                <div class="item__body">
+                    <h3 class="item__title">
+                        <a href="{{ path('app_article_show', {'slug': article.slug}) }}" class="text-decoration-none text-reset stretched-link">
+                            {{ article.title }}
+                        </a>
+                    </h3>
+                    <p class="item__description mt-2 mb-3">{{ article.presentation }}</p>
+                </div>
+            </article>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Settings;
 use App\Repository\CategoryRepository;
 use App\Repository\SettingsRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +15,10 @@ class HomeController extends AbstractController
     public function index(SettingsRepository $settingsRepository, CategoryRepository $categoryRepository): Response
     {
         $settings = $settingsRepository->findSettings();
+        if (null === $settings) {
+            $settings = (new Settings())->setLanguageTranslatedName("Une langue");
+        }
+        
         $categories = $categoryRepository->findParents();
 
         return $this->render('home/index.html.twig', [
@@ -27,6 +32,9 @@ class HomeController extends AbstractController
     public function about(SettingsRepository $settingsRepository): Response
     {
         $settings = $settingsRepository->findSettings();
+        if (null === $settings) {
+            $settings = (new Settings())->setLanguageTranslatedName("Une langue");
+        }
 
         return $this->render('home/about.html.twig', [
             'is_about' => true,

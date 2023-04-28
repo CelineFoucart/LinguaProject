@@ -47,23 +47,10 @@ html, body {
     justify-content: center;
 }
 
-.home-header h1, .header h1 {
+.header h1 {
     line-height: 1.2;
     margin-bottom: 1rem;
     margin-top: 1rem;
-}
-
-.home-header p {
-    font-style: italic;
-}
-
-.home-header {
-    height: 400px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    color: #F8F9FA;
 }
 
 h2, h3 {

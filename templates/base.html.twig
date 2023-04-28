@@ -31,7 +31,7 @@
 								<a class="nav-link {{ is_about is defined ? 'active' : '' }}" href="{{ path('app_about') }}">A propos</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link {{ is_section is defined ? 'active' : '' }}" href="#">Sections</a>
+								<a class="nav-link {{ is_article is defined ? 'active' : '' }}" href="{{ path('app_article_index') }}">Articles</a>
 							</li>
 						</ul>
 						<ul class="navbar-nav ms-auto">
@@ -57,7 +57,7 @@
 		{% block header %}{% endblock %}
 
         <main class="container p-0 {{ is_login is not defined ? 'main' : '' }}">
-            <div class="h-100 p-3">
+            <div class="h-100">
                 {% block body %}{% endblock %}
             </div>
         </main>

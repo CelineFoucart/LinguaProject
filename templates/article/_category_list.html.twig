@@ -1,0 +1,28 @@
+<div class="row mt-3">
+	{% for category in categories %}
+        <div class="col-md-6 col-lg-4 d-flex">
+            <article class="item border bg-light flex-fill">
+                <div class="item__body">
+                    <h3 class="item__title">
+                        <a href="{{ path('app_category_show', {'slug': category.slug}) }}" class="text-decoration-none text-reset">
+                            {{ category.title }} <i class="fas fa-fw fa-external-link-alt"></i>
+                        </a>
+                    </h3>
+                    <p class="item__description mt-2 mb-3">{{ category.description }}</p>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown{{category.id}}" data-bs-toggle="dropdown" aria-expanded="false">
+                            Sections
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown{{category.id}}">
+                            {% for subCategory in category.subCategories %}
+                                <li><a class="dropdown-item" href="{{ path('app_category_show', {'slug': subCategory.slug}) }}">{{ subCategory.title }}</a></li>
+                            {% else %}
+                                <li><a class="dropdown-item" href="#" class="text-muted">Aucune sous catégorie</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </div>
+    {% endfor %}
+</div>

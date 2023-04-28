@@ -45,6 +45,7 @@ class CategoryRepository extends ServiceEntityRepository
     public function findParents(): array
     {
         return $this->createQueryBuilder('c')
+            ->leftJoin('c.subCategories', 'sc')->addSelect('sc')
             ->andWhere('c.parent IS NULL')
             ->orderBy('c.position', 'ASC')
             ->getQuery()
