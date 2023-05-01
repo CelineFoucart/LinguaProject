@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Article;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Service\PaginatorService;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Article>
@@ -16,9 +18,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ArticleRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private PaginatorService $paginatorService;
+
+    public function __construct(ManagerRegistry $registry, PaginatorService $paginatorService)
     {
         parent::__construct($registry, Article::class);
+        $this->paginatorService = $paginatorService;
     }
 
     public function save(Article $entity, bool $flush = false): void
@@ -73,5 +78,16 @@ class ArticleRepository extends ServiceEntityRepository
         }
 
         return $builder->getQuery()->getOneOrNullResult();
+    }
+
+    public function findPaginated(int $page = 1, int $limit = 15, ?int $categoryId = null): PaginationInterface
+    {
+        $query = $this->createQueryBuilder('a')->leftJoin('a.category', 'c')->addSelect('c')->orderBy('a.title');
+
+        if ($categoryId) {
+            $query->andWhere('c.id = :id')->setParameter('id', $categoryId);
+        }
+
+        return $this->paginatorService->setLimit($limit)->paginate($query, $page);
     }
 }

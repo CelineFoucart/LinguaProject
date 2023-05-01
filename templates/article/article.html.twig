@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.title }}|{{ parent() }}{% endblock %}
+
+{% block header %}
+	{% if settings.banner %}
+		{% set banner_file = vich_uploader_asset(settings, 'bannerFile') %}
+		{% set bg_header = 'background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(54, 54, 54, 0.3)),url("'~banner_file~'") center center / cover no-repeat;' %}
+	{% else %}
+		{% set bg_header = 'background:rgb(90 90 90)' %}
+	{% endif %}
+	<header class="header" style="{{bg_header}}">
+		<div class="container">
+			<div class="text-end">
+				<p class="mb-0">
+					{% if article.category %}
+						<a href="{{ path('app_category_show', {'slug': article.category.slug}) }}" class="text-reset">{{ article.category.title }}</a>
+					{% else %}
+						Aucune catégorie
+					{% endif %}
+					<i class="fas fa-fw fa-tag"></i>
+				</p>
+				<h1 class="display-3 mt-0">{{ article.title }}</h1>
+				<p class="fs-5 fst-italic">{{ settings.languageTranslatedName }}</p>
+			</div>
+		</div>
+	</header>
+{% endblock %}
+
+{% block body %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="text-end mb-3 fs-5">
+            <a href="{{ path('app_admin_article_edit', {id: article.id}) }}" class="text-decoration-none" title="éditer">
+                <i class="fas fa-edit fa-fw"></i>
+            </a>
+            <a href="{{ path('app_document_admin_new', {id: article.id}) }}" class="text-decoration-none" title="Ajouter un document">
+                <i class="fas fa-file-upload fa-fw"></i>
+            </a>
+        </div>
+    {% endif %}
+	<div class="lead text-center mb-4">{{ article.presentation }}</div>
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+		<li class="nav-item" role="presentation">
+			<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
+                Article
+            </button>
+		</li>
+		<li class="nav-item" role="presentation">
+			<button class="nav-link" id="document-tab" data-bs-toggle="tab" data-bs-target="#document" type="button" role="tab" aria-controls="document" aria-selected="false">
+                Documents
+            </button>
+		</li>
+	</ul>
+	<div class="tab-content p-2" id="myTabContent">
+		<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="lh-lg">{{ article.content|raw }}</div>
+        </div>
+		<div class="tab-pane fade" id="document" role="tabpanel" aria-labelledby="document-tab">
+            <div class="row">
+                {% for document in article.documents %}
+                    <div class="col-md-3">
+                        <div class="card bg-white p-0">
+                            <div class="card-header">
+                                <strong>{{ document.title }}</strong>
+                            </div>
+                            {% set path_file = vich_uploader_asset(document) %}
+                            {% if document.fileInfo.extension in ['jpeg', 'jpg', 'gif', 'png'] %}
+                                <a href="{{ path_file }}">
+                                    <img src="{{ path_file }}" alt="{{ document.title }}" class="card-img-top">
+                                </a>
+                            {% endif %}
+                            <div class="card-body">
+                                <h3 class="card-title h5">
+                                    <a href="{{ path_file }}" download>
+                                        {{ document.title }}
+                                    </a>
+                                </h3>
+                                <div class="card-text">{{ document.description  ? document.description : 'Aucune description' }}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="text-center text-muted">Aucun document</p>
+                {% endfor %}
+            </div>
+        </div>
+	</div>
+{% endblock %}

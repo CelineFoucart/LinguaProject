@@ -1,0 +1,16 @@
+<article class="item border bg-light flex-fill position-relative">
+    <div class="item__body">
+        <p class="item__description">
+            <i class="fas fa-fw fa-tag"></i>
+            <span class="fst-italic">
+                {{ article.category ? article.category.title : "Aucune catégorie"  }}
+            </span>
+        </p>
+        <h3 class="item__title">
+            <a href="{{ path('app_article_show', {'slug': article.slug}) }}" class="text-decoration-none text-reset stretched-link">
+                {{ article.title }}
+            </a>
+        </h3>
+        <p class="item__description mt-2 mb-3">{{ article.presentation }}</p>
+    </div>
+</article>
