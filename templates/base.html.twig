@@ -44,7 +44,15 @@
 							
 							<li class="nav-item">
 								{% if is_granted('ROLE_USER') %}
-									<a href="{{ path('app_logout') }}" class="btn btn-outline-light">Déconnexion</a>
+									<div class="dropdown">
+										<button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="fas fa-user fa-fw"></i> {{ app.user.username }}
+										</button>
+										<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+											<li><a href="{{ path('app_profile') }}" class="dropdown-item">Profil</a></li>
+											<li><a href="{{ path('app_logout') }}" class="dropdown-item">Déconnexion</a></li>
+										</ul>
+									</div>
 								{% else %}
 									<a href="{{ path('app_login') }}" class="btn btn-outline-light">Connexion</a>
 								{% endif %}

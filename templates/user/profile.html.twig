@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block header %}
+    <header class="container mt-4">
+        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Profil</li>
+            </ol>
+        </nav>
+        <h1 class="h2">Gérer mon profil</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </header>
+{% endblock %}
+
+{% block body %}
+    <article class="container">
+        <div class="row">
+            <section class="col-lg-4">
+                <div class="card border shadow-sm bg-light mb-4">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user-circle display-1"></i>
+                        <h2 class="my-3 h5">{{ user.username }}</h2>
+                        <p class="mb-1 item__description ">Inscrit depuis le {{ user.createdAt|date('d/m/Y H:i') }}</p>
+                        <p class="mb-0 item__description ">Dernière mise à jour : {{ user.updatedAt ? user.updatedAt|date('d/m/Y H:i') : '-' }}</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="col-lg-8">
+                <div class="card border shadow-sm bg-light mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h2 class="mb-0 h6">Pseudo</h2>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ user.username }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h2 class="mb-0 h6">Email</h2>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ user.email }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h2 class="mb-0 h6">Rôle</h2>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ user.roles|join(', ') }}</p>
+                            </div>
+                        </div>       
+                    </div>
+                </div>
+            </section>
+
+            <div class="col-12">
+                <section class="card border shadow-sm bg-light mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title h4 border-bottom mb-3">Mettre à jour mes informations</h2>
+                        
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h3 class="h6">Mon pseudo et mon email</h3>
+                                    {{ form_start(form) }}
+                                        <div class="rounded-3 bg-white p-3">
+                                            {{ form_row(form.username) }}
+                                            {{ form_row(form.email) }}
+                                            <div class="text-end mt-3">
+                                                <button type="submit" class="btn btn-secondary">Modifier</button>
+                                            </div>
+                                        </div>
+                                    {{ form_end(form) }}
+                                </div>
+                                <div class="col-lg-6">
+                                    <h3 class="h6">Mon mot de passe</h3>
+                                    {{ form_start(passwordForm) }}
+                                        <div class="rounded-3 bg-white p-3">
+                                            {{ form_row(passwordForm.currentPassword) }}
+                                            {{ form_row(passwordForm.plainPassword) }}
+
+                                            <div class="text-end mt-3">
+                                                <button type="submit" class="btn btn-secondary">Modifier</button>
+                                            </div>
+                                        </div>
+                                    {{ form_end(passwordForm) }}
+                                </div>
+                            </div>
+                    </div>
+                </section>
+            </div>
+    </article>
+    
+{% endblock %}
