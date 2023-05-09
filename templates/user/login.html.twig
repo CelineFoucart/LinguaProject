@@ -26,29 +26,24 @@ main {
                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                 </div>
 
-                <div class="input-group mb-4">
+                <div class="input-group mb-3">
                     <input type="password" name="password" placeholder="Mot de passe" id="inputPassword" class="form-control" aria-describedby="basic-addon2" autocomplete="current-password" required>
                     <span class="input-group-text" id="basic-addon2"><i class="fas fa-lock"></i></span>
                 </div>
 
-                <input type="hidden" name="_csrf_token"
-                    value="{{ csrf_token('authenticate') }}"
-                >
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                {#
-                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                    See https://symfony.com/doc/current/security/remember_me.html
-
-                <div class="checkbox mb-4">
-                    <label>
-                        <input type="checkbox" name="_remember_me"> <span class="fw-bold text-muted">Se souvenir de moi</span>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" id="rememberMe" type="checkbox" name="_remember_me"> 
+                    <label class="form-check-label" for="rememberMe">
+                        <span class="fw-bold text-muted">Se souvenir de moi</span>
                     </label>
                 </div>
-                #}
 
                 <button class="btn btn-primary btn-sm w-100 mb-3" type="submit">
                     <i class="fas fa-sign-in-alt me-1"></i> Connexion
                 </button>
+
                 {# <p class="mb-1">
                     <a href="#" class="text-decoration-none">J'ai oublié mon mot de passe</a>
                 </p> #}
