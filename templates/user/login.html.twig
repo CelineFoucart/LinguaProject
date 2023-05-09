@@ -15,7 +15,7 @@ main {
     <div class="login-box">
         <h1 class="h3 text-center mb-3 fw-normal"><a href="{{ path('app_home') }}" class="login-link">{{ app_name }}</a></h1>
         <div class="login-card">
-            <p class="small mb-4 text-center text-muted">Connectez-vous pour gérer le site</p>
+            <p class="small mb-4 text-center text-muted">Connectez-vous pour utiliser le site</p>
             <form method="post">
                 {% if error %}
                     <div class="alert alert-danger">Mot de passe ou pseudo invalide</div>
@@ -44,9 +44,9 @@ main {
                     <i class="fas fa-sign-in-alt me-1"></i> Connexion
                 </button>
 
-                {# <p class="mb-1">
-                    <a href="#" class="text-decoration-none">J'ai oublié mon mot de passe</a>
-                </p> #}
+                <p class="mb-1">
+                    <a href="{{ path('app_forgot_password_request') }}" class="text-decoration-none">J'ai oublié mon mot de passe</a>
+                </p>
             </form>
         </div>
     </div>

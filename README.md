@@ -6,6 +6,4 @@ bord de l'administrateur, on peut faire des sauvegardes de la base de données.
 
 ## TODO
 
-* option remember me
-* option oubli de mot de passe
 * refactorisation migration pour la version 1.0.0
