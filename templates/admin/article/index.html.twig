@@ -33,7 +33,7 @@
         
     </div>
     <div class="card-body">
-        <table id="table" class="table table-striped mb-0">
+        <table id="table" class="table table-striped mb-0" style="width:100%">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -42,7 +42,7 @@
                     <th>Catégorie</th>
                     <th>Date de création</th>
                     <th>Dernière mise à jour</th>
-                    <th data-orderable="false">actions</th>
+                    <th data-orderable="false"></th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -121,12 +121,17 @@
                     data: "actions", 
                     name:null, 
                     render: function ( data, type, row ) {
-                        return `<a href="/admin/article/${row.id}" class="btn btn-primary btn-sm">
-                            <i class="fas fa-eye"></i> Voir
-                        </a>
-                        <a href="/admin/article/${row.id}/edit" class="btn btn-success btn-sm">
-                            <i class="fas fa-pencil-alt"></i> Editer
-                        </a>`;
+                        return `<div class="btn-group" role="group" aria-label="Actions">
+                            <a href="/article/${row.slug}" class="btn btn-light border btn-sm">
+                                <i class="fas fa-book-reader"></i> Consulter
+                            </a>
+                            <a href="/admin/article/${row.id}" class="btn btn-light border btn-sm">
+                                <i class="fas fa-eye"></i> Voir
+                            </a>
+                            <a href="/admin/article/${row.id}/edit" class="btn btn-light border btn-sm">
+                                <i class="fas fa-pencil-alt"></i> Editer
+                            </a>
+                        </div>`;
                     }
                 }
             ],
@@ -134,6 +139,9 @@
             language: {
                 url: '/assets/DataTables/i18n/fr-FR.json',
             },
+            createdRow: function( row, data, dataIndex ) {
+                $( row ).find('td:eq(6)').addClass('text-end');
+            }
         });
     });
 </script>

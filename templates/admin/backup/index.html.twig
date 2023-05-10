@@ -36,13 +36,13 @@
             
         </div>
         <div class="card-body">
-            <table id="table" class="table sortable-table">
+            <table id="table" class="table sortable-table" style="width:100%">
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Fichier</th>
                         <th>Date</th>
-                        <th data-orderable="false">Actions</th>
+                        <th data-orderable="false"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,14 +51,16 @@
                         <td>{{ backup.id }}</td>
                         <td>{{ backup.filename }}</td>
                         <td>{{ backup.createdAt|date('d/m/Y H:i') }}</td>
-                        <td>
-                            <a href="{{ path('app_backup_admin_show', {'id': backup.id}) }}" class="btn btn-primary btn-sm">
-                                <i class="fas fa-eye"></i> Voir
-                            </a>
-                            <a href="{{ path('app_backup_admin_download', {'id': backup.id}) }}" class="btn btn-success btn-sm">
-                                <i class="fas fa-download"></i> Télécharger
-                            </a>
-                            {{ include('/admin/backup/_delete_form.html.twig') }}
+                        <td class="text-end">
+                            <div class="btn-group" role="group" aria-label="Actions">
+                                <a href="{{ path('app_backup_admin_show', {'id': backup.id}) }}" class="btn btn-light border btn-sm">
+                                    <i class="fas fa-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_backup_admin_download', {'id': backup.id}) }}" class="btn btn-light border btn-sm">
+                                    <i class="fas fa-download"></i> Télécharger
+                                </a>
+                                {{ include('/admin/backup/_delete_form.html.twig') }}
+                            </div>
                         </td>
                     </tr>
                 {% endfor %}

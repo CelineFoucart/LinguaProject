@@ -46,7 +46,7 @@ class ArticleController extends AbstractController
         return $this->render('article/category.html.twig', [
             'category' => $category,
             'articles' => $articleRepository->findPaginated($page, 15, $category->getId()),
-            'is_article' => true,
+            'is_category' => true,
             'settings' => $this->settings,
         ]);
     }

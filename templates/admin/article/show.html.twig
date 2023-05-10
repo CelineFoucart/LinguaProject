@@ -18,6 +18,9 @@
     <div class="card">
         <div class="card-header">
             <div class="float-end">
+                <a href="{{ path('app_article_show', {'slug': article.slug}) }}" class="btn btn-primary btn-sm me-1">
+                    <i class="fas fa-book-reader"></i> Consulter
+                </a>
                 <a href="{{ path('app_admin_article_edit', {'id': article.id}) }}" class="btn btn-success btn-sm me-1" title="Editer">
                     <i class="fas fa-pencil-alt"></i> Editer
                 </a>

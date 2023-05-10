@@ -6,12 +6,6 @@ bord de l'administrateur, on peut faire des sauvegardes de la base de données.
 
 ## TODO
 
-* ajout lien de consultation page dans l'administration
-* affichage des pages en dropdown dans la navbar
-* affichage d'une page
-* ajout lien d'édition rapide pour catégorie.
-* ordonner selon position les sous-catégories, exemple : <http://127.0.0.1:8000/category/grammaire>
 * faire dropdown admin avec lien rapide
 * améliorer affichage article admin et meilleurs mise en valeur documents
-* ajouter lien ouvrir en consultation dans admin
 * revoir affichage catégorie dans le select du form article (dans bon ordre, sous catégorie avec alinéa).

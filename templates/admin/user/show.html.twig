@@ -24,7 +24,6 @@
                     </a>
                 {% endif %}
                 
-                
                 {% if  is_granted('DELETE', user)  %}
                     {{ include('/admin/user/_delete_form.html.twig') }}
                 {% endif %}

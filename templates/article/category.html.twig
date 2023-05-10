@@ -28,6 +28,13 @@
 {% endblock %}
 
 {% block body %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="text-end mb-3 fs-5">
+            <a href="{{ path('app_admin_category_edit', {id: category.id}) }}" class="text-decoration-none" title="éditer">
+                <i class="fas fa-edit fa-fw"></i>
+            </a>
+        </div>
+    {% endif %}
 	<div class="row my-3">
         <div class="col-md-9">
             <h2>Articles de cette catégorie</h2>
@@ -48,7 +55,7 @@
                 <h3 class="h5">Sous catégories</h3>
                 {% if category.subCategories is not empty %}
                     <ul>
-                        {% for subCategory in category.subCategories %}
+                        {% for subCategory in category.subCategories|sort((a, b) => a.position <=> b.position) %}
                             <li>
                                 <a href="{{ path('app_category_show', {'slug': subCategory.slug}) }}">
                                     {{ subCategory.title }}

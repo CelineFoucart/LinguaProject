@@ -14,12 +14,13 @@ class PageExtensionRuntime implements RuntimeExtensionInterface
     ) {
     }
 
-    public function getPages(): string
+    public function getPages(bool $isAvtive = false): string
     {
         $pages = $this->pageRepository->findBy([], ['title' => 'ASC']);
+        $activeClass =  $isAvtive ? 'active' : '';
 
         $html = '<li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarPageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link '. $activeClass .' dropdown-toggle" href="#" id="navbarPageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Pages
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarPageDropdown">

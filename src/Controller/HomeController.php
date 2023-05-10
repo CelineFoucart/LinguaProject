@@ -30,10 +30,11 @@ class HomeController extends AbstractController
     }
 
     #[Route('/about', name: 'app_about')]
-    public function about(SettingsRepository $settingsRepository): Response
+    public function about(): Response
     {
         return $this->render('home/about.html.twig', [
             'settings' => $this->getSettings(),
+            'is_page' => true,
         ]);
     }
 
@@ -43,6 +44,7 @@ class HomeController extends AbstractController
         return $this->render('home/page.html.twig', [
             'page' => $page,
             'settings' => $this->getSettings(),
+            'is_page' => true,
         ]);
     }
 

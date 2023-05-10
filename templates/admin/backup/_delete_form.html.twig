@@ -1,4 +1,25 @@
-<form method="post" class="d-inline" action="{{ path('app_admin_backup_delete', {'id': backup.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cet élément ?');">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ backup.id) }}">
-    <button class="btn btn-danger btn-sm d-inline"><i class="fas fa-trash"></i> Supprimer</button>
-</form>
+<div class="modal fade" id="deleteModal{{ backup.id }}" tabindex="-1" aria-labelledby="deleteModal{{ backup.id }}Label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="deleteModal{{ backup.id }}Label">Supprimer une sauvegarde</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-danger fw-bold" style="text-align: left">
+                    Voulez-vous vraiment supprimer la sauvegarde <em>{{ backup.filename }}</em> du {{ backup.createdAt|date('d/m/Y à H:i') }} ?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <form method="post" class="d-inline" action="{{ path('app_admin_backup_delete', {'id': backup.id}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ backup.id) }}">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Annuler</button>
+                    <button class="btn btn-danger btn-sm">Confirmer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ backup.id }}">
+    <i class="fas fa-trash"></i> Supprimer
+</button>

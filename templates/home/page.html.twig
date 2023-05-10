@@ -21,7 +21,12 @@
 {% endblock %}
 
 {% block body %}
-	<article>
-		{{ page.content|raw }}
-	</article>
+	{% if is_granted('ROLE_ADMIN') %}
+        <div class="text-end mb-3 fs-5">
+            <a href="{{ path('app_page_admin_edit', {id: page.id}) }}" class="text-decoration-none" title="éditer">
+                <i class="fas fa-edit fa-fw"></i>
+            </a>
+        </div>
+    {% endif %}
+	{{ page.content|raw }}
 {% endblock %}

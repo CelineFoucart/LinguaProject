@@ -14,7 +14,7 @@ class CategoryExtensionRuntime implements RuntimeExtensionInterface
     ) {
     }
 
-    public function getCategories(): string
+    public function getCategories(bool $isAvtive = false): string
     {
         $categories = $this->categoryRepository->findParents();
 
@@ -22,8 +22,9 @@ class CategoryExtensionRuntime implements RuntimeExtensionInterface
             return '';
         }
 
+        $activeClass =  $isAvtive ? 'active' : '';
         $html = '<li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link '. $activeClass .' dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Catégories
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">'

@@ -33,14 +33,14 @@
         
     </div>
     <div class="card-body">
-        <table id="table" class="table sortable-table">
+        <table id="table" class="table sortable-table" style="width:100%">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Titre</th>
                     <th>Position</th>
                     <th>Parent</th>
-                    <th data-orderable="false">Actions</th>
+                    <th data-orderable="false"></th>
                 </tr>
             </thead>
             <tbody>
@@ -50,13 +50,18 @@
                     <td>{{ category.title }}</td>
                     <td>{{ category.position }}</td>
                     <td>{{ category.parent ? category.parent : '-' }}</td>
-                    <td>
-                        <a href="{{ path('app_admin_category_show', {'id': category.id}) }}" class="btn btn-primary btn-sm">
-                            <i class="fas fa-eye"></i> Voir
-                        </a>
-                        <a href="{{ path('app_admin_category_edit', {'id': category.id}) }}" class="btn btn-success btn-sm">
-                            <i class="fas fa-pencil-alt"></i> Editer
-                        </a>
+                    <td class="text-end">
+                        <div class="btn-group" role="group" aria-label="Actions">
+                            <a href="{{ path('app_category_show', {'slug': category.slug}) }}" class="btn btn-light border btn-sm">
+                                <i class="fas fa-book-reader"></i> Consulter
+                            </a>
+                            <a href="{{ path('app_admin_category_show', {'id': category.id}) }}" class="btn btn-light border btn-sm">
+                                <i class="fas fa-eye"></i> Détail
+                            </a>
+                            <a href="{{ path('app_admin_category_edit', {'id': category.id}) }}" class="btn btn-light border btn-sm">
+                                <i class="fas fa-pencil-alt"></i> Editer
+                            </a>
+                        </div>
                     </td>
                 </tr>
             {% endfor %}

@@ -24,7 +24,7 @@
         <h2 class="card-title">Liste des membres</h2>
     </div>
     <div class="card-body">
-        <table id="table" class="table table-striped">
+        <table id="table" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -32,7 +32,7 @@
                     <th>Email</th>
                     <th>Rôles</th>
                     <th>Inscription</th>
-                    <th data-orderable="false">Actions</th>
+                    <th data-orderable="false"></th>
                 </tr>
             </thead>
             <tbody>
@@ -43,15 +43,17 @@
                     <td>{{ user.email }}</td>
                     <td>{{ user.roles|join(', ') }}</td>
                     <td>{{ user.createdAt|date('d/m/Y H:i') }}</td>
-                    <td>
-                        <a href="{{ path('app_user_admin_show', {'id': user.id}) }}" class="btn btn-primary btn-sm">
-                            <i class="fas fa-eye"></i> Voir
-                        </a>
-                        {% if is_granted('EDIT', user) %}
-                            <a href="{{ path('app_user_admin_edit', {'id': user.id}) }}" class="btn btn-success btn-sm">
-                                <i class="fas fa-pencil-alt"></i> Editer
+                    <td class="text-end">
+                        <div class="btn-group" role="group" aria-label="Actions">
+                            <a href="{{ path('app_user_admin_show', {'id': user.id}) }}" class="btn btn-light border btn-sm">
+                                <i class="fas fa-eye"></i> Voir
                             </a>
-                        {% endif %}
+                            {% if is_granted('EDIT', user) %}
+                                <a href="{{ path('app_user_admin_edit', {'id': user.id}) }}" class="btn btn-light border btn-sm">
+                                    <i class="fas fa-pencil-alt"></i> Editer
+                                </a>
+                            {% endif %}
+                        </div>
                     </td>
                 </tr>
             {% endfor %}
