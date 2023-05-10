@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Page;
 use App\Entity\Settings;
 use App\Repository\CategoryRepository;
 use App\Repository\SettingsRepository;
@@ -11,19 +12,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
-    #[Route('/', name: 'app_home')]
-    public function index(SettingsRepository $settingsRepository, CategoryRepository $categoryRepository): Response
+
+    public function __construct(private SettingsRepository $settingsRepository)
     {
-        $settings = $settingsRepository->findSettings();
-        if (null === $settings) {
-            $settings = (new Settings())->setLanguageTranslatedName("Une langue");
-        }
         
+    }
+    #[Route('/', name: 'app_home')]
+    public function index(CategoryRepository $categoryRepository): Response
+    {
         $categories = $categoryRepository->findParents();
 
         return $this->render('home/index.html.twig', [
             'is_home' => true,
-            'settings' => $settings,
+            'settings' => $this->getSettings(),
             'categories' => $categories,
         ]);
     }
@@ -31,14 +32,27 @@ class HomeController extends AbstractController
     #[Route('/about', name: 'app_about')]
     public function about(SettingsRepository $settingsRepository): Response
     {
-        $settings = $settingsRepository->findSettings();
+        return $this->render('home/about.html.twig', [
+            'settings' => $this->getSettings(),
+        ]);
+    }
+
+    #[Route('/page/{slug}', name: 'app_page')]
+    public function page(Page $page): Response
+    {
+        return $this->render('home/page.html.twig', [
+            'page' => $page,
+            'settings' => $this->getSettings(),
+        ]);
+    }
+
+    private function getSettings(): Settings
+    {
+        $settings = $this->settingsRepository->findSettings();
         if (null === $settings) {
             $settings = (new Settings())->setLanguageTranslatedName("Une langue");
         }
 
-        return $this->render('home/about.html.twig', [
-            'is_about' => true,
-            'settings' => $settings,
-        ]);
+        return $settings;
     }
 }

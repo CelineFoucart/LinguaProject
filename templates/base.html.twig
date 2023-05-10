@@ -28,12 +28,10 @@
 								<a class="nav-link {{ is_home is defined ? 'active' : '' }}" href="{{ path('app_home') }}">Accueil</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link {{ is_about is defined ? 'active' : '' }}" href="{{ path('app_about') }}">A propos</a>
-							</li>
-							<li class="nav-item">
 								<a class="nav-link {{ is_article is defined ? 'active' : '' }}" href="{{ path('app_article_index') }}">Articles</a>
 							</li>
 							{{ get_categories() }}
+							{{ get_pages() }}
 						</ul>
 						<ul class="navbar-nav ms-auto">
 							{% if is_granted('ROLE_ADMIN') %}
