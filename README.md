@@ -40,3 +40,8 @@ php bin/console app:create-user
 ## License
 
 Distribué sous la licence MIT. Voir `LICENSE` pour plus d'informations.
+
+## TODO
+
+* Gérer le logo
+* Ajouter modal de suppression dans le reste de l'administration
