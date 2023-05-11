@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use App\Repository\CategoryRepository;
 use DateTime;
 use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +30,7 @@ class ArticleAdminController extends AbstractController
     }
 
     #[Route('/json', name: 'app_api_article_index', methods: ['GET'])]
-    public function indexApi(ArticleRepository $articleRepository, Request $request, SerializerInterface $serializer)
+    public function indexApi(ArticleRepository $articleRepository, Request $request)
     {
         $parameters = $request->query->all();
         $articles = $articleRepository->searchPaginatedItems($parameters);
@@ -47,9 +48,16 @@ class ArticleAdminController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_article_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ArticleRepository $articleRepository): Response
+    public function new(Request $request, ArticleRepository $articleRepository, CategoryRepository $categoryRepository): Response
     {
         $article = new Article();
+        $categoryId = $request->query->getInt('category');
+
+        if ($categoryId > 0) {
+            $category = $categoryRepository->find($categoryId);
+            $article->setCategory($category);
+        }
+        
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 

@@ -30,7 +30,7 @@ class CategoryType extends AbstractType
                 'label' => 'Catégorie parente',
                 'required' => false,
                 'query_builder' => function (CategoryRepository $er) use ($id) {
-                    $builder = $er->createQueryBuilder('c');
+                    $builder = $er->createQueryBuilder('c')->orderBy('c.position', 'ASC');
                     if ($id) {
                         $builder->andWhere('c.id != :id')->setParameter('id', $id);
                     }

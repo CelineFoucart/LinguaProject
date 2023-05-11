@@ -33,6 +33,9 @@
             <a href="{{ path('app_admin_category_edit', {id: category.id}) }}" class="text-decoration-none" title="éditer">
                 <i class="fas fa-edit fa-fw"></i>
             </a>
+            <a href="{{ path('app_admin_article_new', {'category': category.id}) }}" class="text-decoration-none" title="ajouter un article">
+                <i class="fas fa-plus-circle fa-fw"></i>
+            </a>
         </div>
     {% endif %}
 	<div class="row my-3">
@@ -64,7 +67,7 @@
                         {% endfor %}
                     </ul>
                 {% else %}
-                    <p class="fst-italic">Aucune categorie</p>
+                    <p class="fst-italic">Aucune</p>
                 {% endif %}
             </aside>
         </div>

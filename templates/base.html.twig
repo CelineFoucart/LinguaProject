@@ -35,9 +35,18 @@
 						</ul>
 						<ul class="navbar-nav ms-auto">
 							{% if is_granted('ROLE_ADMIN') %}
-								<li class="nav-item me-1">
-									<a href="{{ path('app_admin_dashboard') }}" class="btn btn-outline-light">Administration</a>
-								</li>
+								<div class="dropdown">
+									<button class="btn btn-outline-light dropdown-toggle me-1" type="button" id="dropdownMenuAdmin" data-bs-toggle="dropdown" aria-expanded="false">
+										Administration
+									</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuAdmin">
+										<li><a class="dropdown-item" href="{{ path('app_admin_dashboard') }}">Dashboard</a></li>
+										<li><hr class="dropdown-divider"></li>
+										<li><a class="dropdown-item" href="{{ path('app_admin_article_index') }}">Articles</a></li>
+										<li><a class="dropdown-item" href="{{ path('app_admin_category_index') }}">Catégories</a></li>
+										<li><a class="dropdown-item" href="{{ path('app_page_admin_index') }}">Pages</a></li>
+									</ul>
+								</div>
 							{% endif %}
 							
 							<li class="nav-item">

@@ -107,12 +107,13 @@ async function sortable(list, path) {
 
 const elements = document.querySelectorAll('[data-choices]');
 elements.forEach(element => {
-    const choices = new Choices(element, {
+    new Choices(element, {
         removeItems: true,
         removeItemButton: true,
         allowHTML: false,
         noResultsText: 'Aucun résultat',
         noChoicesText: 'Aucun élément à choisir',
-        itemSelectText: 'Cliquez pour choisir'
+        itemSelectText: 'Cliquez pour choisir',
+        shouldSort: false,
     });
 });

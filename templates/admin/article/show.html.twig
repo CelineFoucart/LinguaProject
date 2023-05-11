@@ -15,110 +15,128 @@
 {% endblock %}
 
 {% block body %}
-    <div class="card">
-        <div class="card-header">
-            <div class="float-end">
-                <a href="{{ path('app_article_show', {'slug': article.slug}) }}" class="btn btn-primary btn-sm me-1">
-                    <i class="fas fa-book-reader"></i> Consulter
-                </a>
-                <a href="{{ path('app_admin_article_edit', {'id': article.id}) }}" class="btn btn-success btn-sm me-1" title="Editer">
-                    <i class="fas fa-pencil-alt"></i> Editer
-                </a>
-                {{ include('/admin/article/_delete_form.html.twig') }}
-            </div>
-            <h2 class="card-title">{{ article.title }}</h2>
-            <p class="text-muted small">
-                Créé le {{ article.createdAt|date('d/m/Y, H:i') }} par {{ article.author.username }}
-            </p>
-        </div>
-        <div class="card-body p-0">
-            <table class="table table-striped m-0">
-                <tbody>
-                    <tr>
-                        <th>Id</th>
-                        <td>{{ article.id }}</td>
-                    </tr>
-                    <tr>
-                        <th>Titre</th>
-                        <td>{{ article.title }}</td>
-                    </tr>
-                    <tr>
-                        <th>Lien</th>
-                        <td>{{ article.slug }}</td>
-                    </tr>
-                    <tr>
-                        <th>Categorie</th>
-                        <td>
-                            {% if article.category %}
-                                <a href="{{ path('app_admin_category_show', {id: article.category.id}) }}">{{ article.category }}</a>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Présentation</th>
-                        <td>{{ article.presentation }}</td>
-                    </tr>
-                    <tr>
-                        <th>Contenu</th>
-                        <td>{{ article.content|raw }}</td>
-                    </tr>
-                    <tr>
-                        <th>Dernière mise à jour</th>
-                        <td>{{ article.updatedAt ? article.updatedAt|date('d/m/Y, H:i') : '' }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div> 
-    </div>
+    <ul class="nav nav-pills bg-white mb-4 rounded" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="content-tab" data-bs-toggle="tab" data-bs-target="#content" type="button" role="tab" aria-controls="content" aria-selected="true">
+                Article
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="documents-tab" data-bs-toggle="tab" data-bs-target="#documents" type="button" role="tab" aria-controls="documents" aria-selected="true">
+                Documents associés
+            </button>
+        </li>
+    </ul>
 
-    <div class="card mt-4">
-        <div class="card-header">
-            <div class="float-end">
-                <a href="{{ path('app_document_admin_new', {id: article.id}) }}" class="btn btn-primary btn-sm border" title="Ajouter un document">
-                    <i class="fas fa-plus-circle"></i> Document
-                </a>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="content" role="tabpanel" aria-labelledby="content-tab">
+            <div class="card">
+                <div class="card-header">
+                    <div class="float-end">
+                        <a href="{{ path('app_article_show', {'slug': article.slug}) }}" class="btn btn-primary btn-sm me-1">
+                            <i class="fas fa-book-reader"></i> Consulter
+                        </a>
+                        <a href="{{ path('app_admin_article_edit', {'id': article.id}) }}" class="btn btn-success btn-sm me-1" title="Editer">
+                            <i class="fas fa-pencil-alt"></i> Editer
+                        </a>
+                        {{ include('/admin/article/_delete_form.html.twig') }}
+                    </div>
+                    <h2 class="card-title">{{ article.title }}</h2>
+                    <p class="text-muted small">
+                        Créé le {{ article.createdAt|date('d/m/Y, H:i') }} par {{ article.author.username }}
+                    </p>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-striped m-0">
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ article.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Titre</th>
+                                <td>{{ article.title }}</td>
+                            </tr>
+                            <tr>
+                                <th>Lien</th>
+                                <td>{{ article.slug }}</td>
+                            </tr>
+                            <tr>
+                                <th>Catégorie</th>
+                                <td>
+                                    {% if article.category %}
+                                        <a href="{{ path('app_admin_category_show', {id: article.category.id}) }}">{{ article.category }}</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Présentation</th>
+                                <td>{{ article.presentation }}</td>
+                            </tr>
+                            <tr>
+                                <th>Contenu</th>
+                                <td>{{ article.content|raw }}</td>
+                            </tr>
+                            <tr>
+                                <th>Dernière mise à jour</th>
+                                <td>{{ article.updatedAt ? article.updatedAt|date('d/m/Y, H:i') : '' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> 
             </div>
-            <h2 class="card-title">Documents</h2>
         </div>
-        <div class="card-body">
-            <table class="table table-striped m-0">
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>Fichier</th>
-                        <th>Description</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for document in article.documents %}
-                    <tr>
-                        <td>{{ document.id }}</td>
-                        <td>
-                            <a href="{{ vich_uploader_asset(document) }}" download>
-                                {{ document.title }}
-                            </a>
-                        </td>
-                        <td>
-                            {{ document.description }}
-                        </td>
-                        <td>
-                            <a href="{{ path('app_document_admin_show', {'id': document.id}) }}" class="btn btn-primary btn-sm">
-                                <i class="fas fa-eye"></i> Voir
-                            </a>
-                            <a href="{{ path('app_document_admin_edit', {'id': document.id}) }}" class="btn btn-success btn-sm">
-                                <i class="fas fa-pencil-alt"></i> Editer
-                            </a>
-                            {{ include('/admin/document/_delete_form.html.twig') }}
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="4" class="text-center">Aucun document</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+        <div class="tab-pane fade" id="documents" role="tabpanel" aria-labelledby="documents-tab">
+            <div class="card mt-4">
+                <div class="card-header">
+                    <div class="float-end">
+                        <a href="{{ path('app_document_admin_new', {id: article.id}) }}" class="btn btn-primary btn-sm border" title="Ajouter un document">
+                            <i class="fas fa-plus-circle"></i> Document
+                        </a>
+                    </div>
+                    <h2 class="card-title">Documents</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped m-0">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>Fichier</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for document in article.documents %}
+                            <tr>
+                                <td>{{ document.id }}</td>
+                                <td>
+                                    <a href="{{ vich_uploader_asset(document) }}" download>
+                                        {{ document.title }}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{ document.description }}
+                                </td>
+                                <td>
+                                    <a href="{{ path('app_document_admin_show', {'id': document.id}) }}" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-eye"></i> Voir
+                                    </a>
+                                    <a href="{{ path('app_document_admin_edit', {'id': document.id}) }}" class="btn btn-success btn-sm">
+                                        <i class="fas fa-pencil-alt"></i> Editer
+                                    </a>
+                                    {{ include('/admin/document/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="text-center">Aucun document</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
