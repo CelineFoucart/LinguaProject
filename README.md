@@ -43,4 +43,4 @@ Distribué sous la licence MIT. Voir `LICENSE` pour plus d'informations.
 
 ## TODO
 
-* Ajouter modal de suppression dans le reste de l'administration
+* show password dans admin fonctionne pas

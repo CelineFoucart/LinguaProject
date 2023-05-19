@@ -187,4 +187,10 @@ class Category
     {
         return $this->title ? $this->title : '';
     }
+
+    public function getClass(): string
+    {
+        $path = explode('\\', __CLASS__);
+        return array_pop($path);
+    }
 }

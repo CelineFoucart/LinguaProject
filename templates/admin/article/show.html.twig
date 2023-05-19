@@ -39,7 +39,7 @@
                         <a href="{{ path('app_admin_article_edit', {'id': article.id}) }}" class="btn btn-success btn-sm me-1" title="Editer">
                             <i class="fas fa-pencil-alt"></i> Editer
                         </a>
-                        {{ include('/admin/article/_delete_form.html.twig') }}
+                        {{ include('/admin/components/_delete_form.html.twig', {'element': article, 'path': 'app_admin_article_delete'}) }}
                     </div>
                     <h2 class="card-title">{{ article.title }}</h2>
                     <p class="text-muted small">
@@ -125,7 +125,7 @@
                                     <a href="{{ path('app_document_admin_edit', {'id': document.id}) }}" class="btn btn-success btn-sm">
                                         <i class="fas fa-pencil-alt"></i> Editer
                                     </a>
-                                    {{ include('/admin/document/_delete_form.html.twig') }}
+                                    {{ include('/admin/components/_delete_form.html.twig', {'element': document, 'path': 'app_document_admin_delete'}) }}
                                 </td>
                             </tr>
                         {% else %}

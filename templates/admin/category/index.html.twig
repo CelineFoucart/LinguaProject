@@ -40,6 +40,7 @@
                     <th>Titre</th>
                     <th>Position</th>
                     <th>Parent</th>
+                    <th>Articles</th>
                     <th data-orderable="false"></th>
                 </tr>
             </thead>
@@ -50,6 +51,7 @@
                     <td>{{ category.title }}</td>
                     <td>{{ category.position }}</td>
                     <td>{{ category.parent ? category.parent : '-' }}</td>
+                    <td>{{ category.articles|length }}</td>
                     <td class="text-end">
                         <div class="btn-group" role="group" aria-label="Actions">
                             <a href="{{ path('app_category_show', {'slug': category.slug}) }}" class="btn btn-light border btn-sm">

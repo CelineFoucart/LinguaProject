@@ -47,4 +47,14 @@ class Backup
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->filename;
+    }
+
+    public function getClass(): string
+    {
+        return get_class($this);
+    }
 }

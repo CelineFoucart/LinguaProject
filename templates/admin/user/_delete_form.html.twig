@@ -1,4 +1,0 @@
-<form method="post" class="d-inline"  action="{{ path('app_user_admin_delete', {'id': user.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cet élément ?');">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-    <button class="btn btn-danger btn-sm d-inline"><i class="fas fa-trash"></i> Supprimer</button>
-</form>

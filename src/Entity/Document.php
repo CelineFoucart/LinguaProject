@@ -155,4 +155,15 @@ class Document
     {
         return pathinfo($this->filename);
     }
+
+    public function __toString()
+    {
+        return $this->title;
+    }
+
+    public function getClass(): string
+    {
+        $path = explode('\\', __CLASS__);
+        return array_pop($path);
+    }
 }

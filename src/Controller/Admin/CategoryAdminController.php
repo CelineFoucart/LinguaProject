@@ -39,7 +39,7 @@ class CategoryAdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $slug = strtolower($this->slugger->slug($category->getTitle()));
-            $category->setSlug($slug);
+            $category->setSlug($slug)->setPosition(0);
             $categoryRepository->save($category, true);
 
             return $this->redirectToRoute('app_admin_category_show', ['id' => $category->getId()], Response::HTTP_SEE_OTHER);
@@ -111,6 +111,12 @@ class CategoryAdminController extends AbstractController
     #[Route('/{id}', name: 'app_admin_category_delete', methods: ['POST'])]
     public function delete(Request $request, Category $category, CategoryRepository $categoryRepository): Response
     {
+        if (!$category->getArticles()->isEmpty()) {
+            $this->addFlash('error', "La catégorie {$category->getTitle()} n'a pas pu être supprimée, car elle contient des articles.");
+            
+            return $this->redirectToRoute('app_admin_category_index', [], Response::HTTP_SEE_OTHER);
+        }
+
         if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
             $categoryRepository->remove($category, true);
 

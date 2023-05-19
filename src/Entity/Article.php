@@ -198,4 +198,15 @@ class Article
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->title;
+    }
+
+    public function getClass(): string
+    {
+        $path = explode('\\', __CLASS__);
+        return array_pop($path);
+    }
 }
