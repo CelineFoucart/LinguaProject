@@ -28,16 +28,19 @@
 {% endblock %}
 
 {% block body %}
-    {% if is_granted('ROLE_ADMIN') %}
-        <div class="text-end mb-3 fs-5">
-            <a href="{{ path('app_admin_article_edit', {id: article.id}) }}" class="text-decoration-none" title="éditer">
-                <i class="fas fa-edit fa-fw"></i>
-            </a>
-            <a href="{{ path('app_document_admin_new', {id: article.id}) }}" class="text-decoration-none" title="Ajouter un document">
-                <i class="fas fa-file-upload fa-fw"></i>
+        <div class="text-end mb-3 fs-5 icons-bar">
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_admin_article_edit', {id: article.id}) }}" class="text-decoration-none" title="éditer">
+                    <i class="fas fa-edit fa-fw"></i>
+                </a>
+                <a href="{{ path('app_document_admin_new', {id: article.id}) }}" class="text-decoration-none" title="Ajouter un document">
+                    <i class="fas fa-file-upload fa-fw"></i>
+                </a>
+            {% endif %}
+            <a href="javascript:print()" class="text-decoration-none" title="Imprimer">
+                <i class="fas fa-print fa-fw"></i>
             </a>
         </div>
-    {% endif %}
 	<div class="lead text-center mb-4">{{ article.presentation }}</div>
 	<ul class="nav nav-tabs" id="myTab" role="tablist">
 		<li class="nav-item" role="presentation">
@@ -58,23 +61,22 @@
 		<div class="tab-pane fade" id="document" role="tabpanel" aria-labelledby="document-tab">
             <div class="row">
                 {% for document in article.documents %}
+                    {% set path_file = vich_uploader_asset(document) %}
                     <div class="col-md-3">
                         <div class="card bg-white p-0">
                             <div class="card-header">
-                                <strong>{{ document.title }}</strong>
+                                <h3 class="card-title h5 mb-0">
+                                    <a href="{{ path_file }}" download>
+                                        {{ document.title }}
+                                    </a>
+                                </h3>
                             </div>
-                            {% set path_file = vich_uploader_asset(document) %}
                             {% if document.fileInfo.extension in ['jpeg', 'jpg', 'gif', 'png'] %}
                                 <a href="{{ path_file }}">
                                     <img src="{{ path_file }}" alt="{{ document.title }}" class="card-img-top">
                                 </a>
                             {% endif %}
                             <div class="card-body">
-                                <h3 class="card-title h5">
-                                    <a href="{{ path_file }}" download>
-                                        {{ document.title }}
-                                    </a>
-                                </h3>
                                 <div class="card-text">{{ document.description  ? document.description : 'Aucune description' }}</div>
                             </div>
                         </div>

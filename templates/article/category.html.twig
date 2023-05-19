@@ -28,16 +28,20 @@
 {% endblock %}
 
 {% block body %}
-    {% if is_granted('ROLE_ADMIN') %}
-        <div class="text-end mb-3 fs-5">
+    <div class="text-end mb-3 fs-5 icons-bar">
+        {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('app_admin_category_edit', {id: category.id}) }}" class="text-decoration-none" title="éditer">
                 <i class="fas fa-edit fa-fw"></i>
             </a>
             <a href="{{ path('app_admin_article_new', {'category': category.id}) }}" class="text-decoration-none" title="ajouter un article">
                 <i class="fas fa-plus-circle fa-fw"></i>
             </a>
-        </div>
-    {% endif %}
+        {% endif %}
+        <a href="javascript:print()" class="text-decoration-none" title="Imprimer">
+            <i class="fas fa-print fa-fw"></i>
+        </a>
+    </div>
+    
 	<div class="row my-3">
         <div class="col-md-9">
             <h2>Articles de cette catégorie</h2>

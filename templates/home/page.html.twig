@@ -21,12 +21,16 @@
 {% endblock %}
 
 {% block body %}
-	{% if is_granted('ROLE_ADMIN') %}
-        <div class="text-end mb-3 fs-5">
+    <div class="text-end mb-3 fs-5 icons-bar">
+        {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('app_page_admin_edit', {id: page.id}) }}" class="text-decoration-none" title="éditer">
                 <i class="fas fa-edit fa-fw"></i>
             </a>
-        </div>
-    {% endif %}
+        {% endif %}
+        <a href="javascript:print()" class="text-decoration-none" title="Imprimer">
+            <i class="fas fa-print fa-fw"></i>
+        </a>
+    </div>
+    
 	{{ page.content|raw }}
 {% endblock %}
