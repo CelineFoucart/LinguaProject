@@ -5,6 +5,7 @@ twig:
     globals:
         app_name: '%env(APP_NAME)%'
         app_description: '%env(APP_DESCRIPTION)%'
+        app_favicon: '%env(APP_FAVICON)%'
 
 when@test:
     twig:

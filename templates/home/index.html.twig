@@ -27,6 +27,11 @@
 {% block body %}
 	<article>
 		<div class="lead">{{ settings.languageDescription|raw }}</div>
+		{% if settings.favicon %}
+			<figure class="d-flex justify-content-center">
+				<img src="{{ vich_uploader_asset(settings, 'faviconFile') }}" alt="le logo du site" class="img-thumbnail">
+			</figure>
+		{% endif %}
         <hr>
 		<h2 class="mt-4">Consulter les catégories</h2>
 		<div>
