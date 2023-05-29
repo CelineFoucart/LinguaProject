@@ -43,5 +43,4 @@ Distribué sous la licence MIT. Voir `LICENSE` pour plus d'informations.
 
 ## TODO
 
-* show password dans admin fonctionne pas
 * faire des pages d'erreurs personnalisées

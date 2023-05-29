@@ -1,7 +1,7 @@
 /**
  * Remove an element from the DOM.
  * 
- * @param {string} elementId    element to remove id 
+ * @param {String} elementId    element to remove id 
  */
 function deleteAction(elementId) {
     const element = document.querySelector(`#${elementId}`);
@@ -12,8 +12,8 @@ function deleteAction(elementId) {
 
 /**
  * Create a alert that disappear after 5 seconds. 
- * @param {string} type     alert type, success or error
- * @param {string} text     the message to display
+ * @param {String} type     alert type, success or error
+ * @param {String} text     the message to display
  */
 function toastify(type = 'success', text = null) {
     // create container if not exist
@@ -53,8 +53,8 @@ function toastify(type = 'success', text = null) {
 /**
  * Create a sortable list.
  * 
- * @param {string} list     selector of the list
- * @param {string} path     the path used to send the updated data
+ * @param {String} list     selector of the list
+ * @param {String} path     the path used to send the updated data
  */
 async function sortable(list, path) {
     const events = document.querySelector(list);
@@ -95,6 +95,20 @@ async function sortable(list, path) {
                 .catch(error => toastify('error', error));
         }
     });
+}
+
+/**
+ * Change the type of a password input to hide or show the password.
+ * 
+ * @param {String} targetId 
+ */
+function togglePassword(targetId) {
+    const input = document.querySelector(`#${targetId}`);
+    if (input.type === 'password') {
+        input.type = 'text';
+    } else {
+        input.type = 'password';
+    }
 }
 
 (function () {
