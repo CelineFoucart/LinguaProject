@@ -2,7 +2,10 @@
 
 namespace App\Service;
 
+use Symfony\Component\Mailer\Transport;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
+use Symfony\Component\Mailer\Transport\Smtp\Stream\SocketStream;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class ConfigService
@@ -15,12 +18,19 @@ class ConfigService
         'APP_FAVICON' => "favicon.png",
         'APP_BANNER' => "banner.jpg",
         'PER_PAGE_INDEX' => 15,
-        'PER_PAGE_CATEGORY' => 14
+        'PER_PAGE_CATEGORY' => 14,
+        'APP_CONTACT_EMAIL' => '',
+        'APP_CONTACT_NAME' => '',
+        'SMTP_USER' => '',
+        'SMTP_PASSWORD' => '',
+        'SMTP_HOST' => '',
+        'SMTP_PORT' => '',
     ];
 
     public function __construct(private string $configFile, private string $publicDir)
     {
         $this->hydrateEnvVars();
+        $this->hydrateDsnParams();
     }
 
     public function save(array $newData): bool 
@@ -29,9 +39,34 @@ class ConfigService
             return false;
         }
 
-        foreach ($newData as $key => $value) {
-            $this->setEnv($key, $value);
+        $keys = [
+            'APP_NAME',
+            'APP_LANGUAGE_NAME',
+            'APP_ORIGINAL_LANGUAGE_NAME',
+            'APP_DESCRIPTION',
+            'APP_FAVICON',
+            'APP_BANNER',
+            'PER_PAGE_INDEX',
+            'PER_PAGE_CATEGORY',
+            'APP_CONTACT_EMAIL',
+            'APP_CONTACT_NAME'
+        ];
+
+        foreach ($keys as $key) {
+            $this->setEnv($key, $newData[$key]);
         }
+
+        $smtpUser = isset($newData['SMTP_USER']) ? $newData['SMTP_USER'] : '';
+        $smtpPassword = isset($newData['SMTP_PASSWORD']) ? $newData['SMTP_PASSWORD'] : '';
+        $smtpHost = isset($newData['SMTP_HOST']) ? $newData['SMTP_HOST'] : '';
+        $smtpPort = isset($newData['SMTP_PORT']) ? $newData['SMTP_PORT'] : '';
+
+        if (strlen($smtpUser) <= 1 || strlen($smtpPassword) <= 1 || strlen($smtpHost) <= 1 || strlen($smtpPort) <= 1) {
+            return true;
+        }
+
+        $mailerDSN = "smtp://{$smtpUser}:{$smtpPassword}@{$smtpHost}:{$smtpPort}";
+        $this->setEnv('MAILER_DSN', $mailerDSN);
 
         return true;
     }
@@ -86,6 +121,30 @@ class ConfigService
         return $this;
     }
 
+    public function hydrateDsnParams(): self
+    {
+        if (!isset($_ENV['MAILER_DSN'])) {
+            return $this;
+        }
+        
+        $transport = Transport::fromDsn($_ENV['MAILER_DSN']);
+
+        if (!$transport instanceof EsmtpTransport) {
+            return $this;
+        }
+        $this->envVars['SMTP_USER'] = $transport->getUsername();
+        $this->envVars['SMTP_PASSWORD'] = $transport->getPassword();
+
+        $stream = $transport->getStream();
+
+        if ($stream instanceof SocketStream) {
+            $this->envVars['SMTP_HOST'] = $stream->getHost();
+            $this->envVars['SMTP_PORT'] = $stream->getPort();
+        }
+
+        return $this;
+    }
+
     /**
      * Move an uploaded file to a directory in the server.
      *
@@ -112,16 +171,20 @@ class ConfigService
 
     private function setEnv(string $key, mixed $value): bool
     {
-        if ($value instanceof UploadedFile || !isset($this->envVars[$key])) {
-            return false;
+        $parts = (is_string($_ENV[$key]) && $key !== 'MAILER_DSN') ? '"' : '';
+        $search = $_ENV[$key];
+
+        if ($key === 'MAILER_DSN') {
+            if (preg_match('/null:\/\/default/', file_get_contents($this->configFile))) {
+                $search = "null://default";
+            }
         }
-        $parts = (is_string($this->envVars[$key])) ? '"' : '';
+
         $status = file_put_contents($this->configFile, str_replace(
-            $key . '=' . $parts . $this->envVars[$key] . $parts,
+            $key . '=' . $parts . $search . $parts,
             $key . '=' . $parts . $value . $parts,
             file_get_contents($this->configFile)
         ));
-
         return is_int($status);
     }
 }

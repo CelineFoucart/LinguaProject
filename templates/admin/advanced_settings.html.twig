@@ -92,6 +92,36 @@
                         </div>
                     </div>
                 </div>
+            </div> 
+        </div>
+        <div class="card mt-3">
+            <div class="card-header">
+                <h2 class="card-title">Configurer le SMTP pour l'envoi d'email</h2>
+            </div>
+            <div class="card-body">
+                <p>Pour que la réinitialisation du mot de passe fonctionne, il est nécessaire de remplir tous les champs ci-dessous.</p>
+                <h3 class="h5">Email de l'administrateur</h3>
+                <div class="row">
+                    <div class="col-md-6">{{ form_row(form.APP_CONTACT_EMAIL) }}</div>
+                    <div class="col-md-6">{{ form_row(form.APP_CONTACT_NAME) }}</div>
+                </div>
+                <h3 class="h5">Service SMTP</h3>
+                <div class="row">
+                    <div class="col-md-6">{{ form_row(form.SMTP_USER) }}</div>
+                    <div class="col-md-6">
+                        {{ form_label(form.SMTP_PASSWORD) }}
+                        <div class="input-group mb-3">
+                            {{ form_widget(form.SMTP_PASSWORD) }}
+                            <span class="input-group-text" id="password-second" role="button" onclick="togglePassword('advanced_settings_SMTP_PASSWORD')">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
+                        {{ form_errors(form.SMTP_PASSWORD) }}
+                    </div>
+                    <div class="col-md-9">{{ form_row(form.SMTP_HOST) }}</div>
+                    <div class="col-md-3">{{ form_row(form.SMTP_PORT) }}</div>
+                </div>
+                
                 {{ form_rest(form) }}
                 <button type="submit" class="btn btn-success">Enregistrer</button>
             </div> 

@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class AdvancedSettingsType extends AbstractType
 {
@@ -60,6 +61,30 @@ class AdvancedSettingsType extends AbstractType
                     ]),
                 ],
                 'help' => "Le favicon doit faire au maximum 160 pixels de large et 160 pixels de hauteur.",
+            ])
+            ->add('APP_CONTACT_EMAIL', TextType::class, [
+                'label' => "Email de contact",
+            ])
+            ->add('APP_CONTACT_NAME', TextType::class, [
+                'label' => 'Nom associé à l\'email de contact',
+                'required' => false,
+            ])
+            ->add('SMTP_USER', TextType::class, [
+                'label' => "Nom d'utilisateur du compte SMTP",
+                'required' => false,
+            ])
+            ->add('SMTP_PASSWORD', PasswordType::class, [
+                'label' => "Mot de passe du compte SMTP",
+                'attr' => ['autocomplete' => 'new-password'],
+                'required' => false,
+            ])
+            ->add('SMTP_HOST', TextType::class, [
+                'label' => "Service SMTP",
+                'required' => false,
+            ])
+            ->add('SMTP_PORT', TextType::class, [
+                'label' => "Port utilisé pour la connexion SMTP",
+                'required' => false,
             ])
         ;
     }
