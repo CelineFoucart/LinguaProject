@@ -1,0 +1,100 @@
+{% extends 'admin_layout.html.twig' %}
+
+{% block title %}Paramètres | Administration{% endblock %}
+
+{% block page_title %}Paramètres{% endblock %}
+
+{% block activeAdvancedSettings %}active{% endblock %}
+
+{% block breadcrumb_items %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb justify-content-end">
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Paramètres</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <ul class="nav nav-pills bg-white mb-4 rounded" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a href="{{ path('app_admin_settings_index') }}" class="nav-link">
+                Page Index
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a href="{{ path('app_admin_settings_about') }}" class="nav-link">
+                Page A propos
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a href="{{ path('app_admin_settings_advanced') }}" class="nav-link active">
+                Paramètres
+            </a>
+        </li>
+    </ul>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+
+    {{ form_start(form) }}
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Identité du site</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">{{ form_row(form.APP_NAME) }}</div>
+                    <div class="col-md-4">{{ form_row(form.APP_LANGUAGE_NAME) }}</div>
+                    <div class="col-md-4">{{ form_row(form.APP_ORIGINAL_LANGUAGE_NAME) }}</div>
+                </div>
+                {{ form_row(form.APP_DESCRIPTION) }}
+            </div> 
+        </div>
+        <div class="card mt-3">
+            <div class="card-header">
+                <h2 class="card-title">Affichage</h2>
+            </div>
+            <div class="card-body">
+                {{ form_row(form.PER_PAGE_INDEX) }}
+                {{ form_row(form.PER_PAGE_CATEGORY) }}
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form_label(form.bannerFile) }}
+                            {{ form_widget(form.bannerFile) }}
+                            {{ form_help(form.bannerFile) }}
+                            {% if bannerFile %}
+                                {% set path = asset(bannerFile) %}
+                                <img src="{{ path }}" alt="image de la bannière" class="img-fluid mt-1" title="{{bannerFile}}">    
+                                <p><a href="{{ path }}" download>Télécharger</a></p>
+                            {% endif %}
+                            {{ form_errors(form.bannerFile) }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form_label(form.faviconFile) }}
+                            {{ form_widget(form.faviconFile) }}
+                            {{ form_help(form.faviconFile) }}
+                            {% if faviconFile %}
+                                {% set path = asset(faviconFile) %}
+                                <img src="{{ path }}" alt="image de la bannière" class="img-fluid mt-1" title="{{faviconFile}}">    
+                                <p><a href="{{ path }}" download>Télécharger</a></p>
+                            {% endif %}
+                            {{ form_errors(form.faviconFile) }}
+                        </div>
+                    </div>
+                </div>
+                {{ form_rest(form) }}
+                <button type="submit" class="btn btn-success">Enregistrer</button>
+            </div> 
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

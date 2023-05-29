@@ -1,12 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil |
-	{{ parent() }}
-{% endblock %}
+{% block title %}Accueil | {{ parent() }}{% endblock %}
 
 {% block header %}
-    {% if settings.banner %}
-        {% set banner_file = vich_uploader_asset(settings, 'bannerFile') %}
+    {% if app_banner|length > 1 %}
+        {% set banner_file = asset(app_banner) %}
         {% set bg_header = 'background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(54, 54, 54, 0.3)),url("'~banner_file~'") center center / cover no-repeat;' %}
     {% else %}
         {% set bg_header = 'background:rgb(90 90 90)' %}
@@ -16,8 +14,8 @@
         <div class="container">
 			<div class="text-end">
 				<p class="mb-0 text-decoration-underline">Accueil</p>
-				<h1 class="display-3 mt-0">{{ settings.languageTranslatedName }}</h1>
-				<p class="fs-5 fst-italic">{{ settings.languageOriginalName }}</p>
+				<h1 class="display-3 mt-0">{{ language_name }}</h1>
+				<p class="fs-5 fst-italic">{{ original_language_name }}</p>
 			</div>
 		</div>
     </header>

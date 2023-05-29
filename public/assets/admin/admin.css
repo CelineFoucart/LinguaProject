@@ -70,14 +70,37 @@ html, body {
     transition: all .2s ease-in-out;
 }
 
-.sidebar .nav-item:hover {
+.sidebar .nav-item:hover,
+.menu-open .btn-menu {
     background-color: rgba(255,255,255,.1);
 }
 
-.sidebar .nav-item.active {
+.menu-container {
+    cursor: pointer;
+}
+
+.menu-open.active >.nav-submenu {
+    background-color: #343a40;
+}
+
+.menu-open >.nav-submenu .nav-item {
+    padding-left: 2rem;
+}
+
+.sidebar .nav-item.active,
+.menu-open.active >.nav-submenu .nav-item.active {
     position: relative;
     background-color: rgba(255,255,255,.1);
 }
+
+.nav-submenu {
+    display: none;
+}
+
+.menu-open >.nav-submenu {
+    display: block;
+}
+
 
 .sidebar .nav-item.active::before {
     content: ' ';

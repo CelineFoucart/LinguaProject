@@ -43,7 +43,6 @@ class HomeController extends AbstractController
     {
         return $this->render('home/page.html.twig', [
             'page' => $page,
-            'settings' => $this->getSettings(),
             'is_page' => true,
         ]);
     }
@@ -52,7 +51,7 @@ class HomeController extends AbstractController
     {
         $settings = $this->settingsRepository->findSettings();
         if (null === $settings) {
-            $settings = (new Settings())->setLanguageTranslatedName("Une langue");
+            $settings = new Settings();
         }
 
         return $settings;

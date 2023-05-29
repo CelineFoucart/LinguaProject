@@ -1,0 +1,63 @@
+{% extends 'admin_layout.html.twig' %}
+
+{% block title %}Configurations | Administration{% endblock %}
+
+{% block page_title %}Configurations et réglages{% endblock %}
+
+{% block activeIndexSettings %}active{% endblock %}
+
+{% block breadcrumb_items %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb justify-content-end">
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Configurations</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <ul class="nav nav-pills bg-white mb-4 rounded" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a href="{{ path('app_admin_settings_index') }}" class="nav-link active">
+                Page Index
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a href="{{ path('app_admin_settings_about') }}" class="nav-link">
+                Page A propos
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a href="{{ path('app_admin_settings_advanced') }}" class="nav-link">
+                Paramètres
+            </a>
+        </li>
+    </ul>
+
+    {{ form_start(form) }}
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Texte de la page "<a href="{{ path('app_home') }}">Index</a>"</h2>
+            </div>
+            <div class="card-body">
+                {{ form_row(form.languageDescription) }}
+            </div> 
+        </div>
+
+        <div class="card mt-2">
+            <div class="card-header">
+                <h2 class="card-title">Image de la page "<a href="{{ path('app_home') }}">Index</a>"</h2>
+            </div>
+            <div class="card-body">
+                {{ form_row(form.faviconFile) }}
+                {{ form_rest(form) }}
+                <button type="submit" class="btn btn-success">Enregistrer</button>
+            </div> 
+        </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset("assets/ckeditor/ckeditor.js") }}"></script>
+    <script>CKEDITOR.replace( 'index_settings_languageDescription' );</script>
+{% endblock %}

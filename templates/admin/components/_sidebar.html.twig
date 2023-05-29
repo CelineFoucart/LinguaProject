@@ -39,10 +39,28 @@
                 <i class="icon fas fa-save"></i> <span class="sidebar-title">Sauvegarde</span>
             </a>
         </li>
-        <li class="nav-item {{ activeSettings is defined ? 'active' : '' }}">
-            <a href="{{ path('app_admin_settings') }}" class="nav-link">
+        <li class="nav-item menu-container {{ activeAboutSettings is defined or activeIndexSettings is defined or activeAdvancedSettings is defined ? 'menu-open active' : '' }}">
+            <span class="nav-link btn-menu">
                 <i class="icon fas fa-cogs"></i> <span class="sidebar-title">Configurations</span>
-            </a>
+                <span class="float-end"><i class="fas fa-caret-down fa-fw"></i></span>
+            </span>
+            <ul class="nav nav-submenu">
+                <li class="nav-item {{ activeIndexSettings is defined ? 'active' : '' }}">
+                    <a href="{{ path('app_admin_settings_index') }}" class="nav-link">
+                        Page Index
+                    </a>
+                </li>
+                <li class="nav-item {{ activeAboutSettings is defined ? 'active' : '' }}">
+                    <a href="{{ path('app_admin_settings_about') }}" class="nav-link">
+                        Page A propos
+                    </a>
+                </li>
+                <li class="nav-item {{ activeAdvancedSettings is defined ? 'active' : '' }}">
+                    <a href="{{ path('app_admin_settings_advanced') }}" class="nav-link">
+                        Paramètres
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
 </aside>

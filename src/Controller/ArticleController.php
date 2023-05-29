@@ -14,17 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
 {
-    private ?Settings $settings = null;
-
-    public function __construct(SettingsRepository $settingsRepository)
-    {
-        $settings = $settingsRepository->findSettings();
-        if (null === $settings) {
-            $settings = (new Settings())->setLanguageTranslatedName("Une langue");
-        }
-
-        $this->settings = $settings;
-    }
 
     #[Route('/article', name: 'app_article_index')]
     public function index(ArticleRepository $articleRepository, Request $request): Response
@@ -34,7 +23,6 @@ class ArticleController extends AbstractController
         return $this->render('article/index.html.twig', [
             'articles' => $articleRepository->findPaginated($page),
             'is_article' => true,
-            'settings' => $this->settings,
         ]);
     }
 
@@ -47,7 +35,6 @@ class ArticleController extends AbstractController
             'category' => $category,
             'articles' => $articleRepository->findPaginated($page, 14, $category->getId()),
             'is_category' => true,
-            'settings' => $this->settings,
         ]);
     }
 
@@ -57,7 +44,6 @@ class ArticleController extends AbstractController
         return $this->render('article/article.html.twig', [
             'article' => $article,
             'is_article' => true,
-            'settings' => $this->settings,
         ]);
     }
 }

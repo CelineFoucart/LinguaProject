@@ -99,10 +99,23 @@ async function sortable(list, path) {
 
 (function () {
     'use strict'
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     tooltipTriggerList.forEach(function (tooltipTriggerEl) {
         new bootstrap.Tooltip(tooltipTriggerEl)
     })
+
+    const menus = document.querySelectorAll('.btn-menu');
+    menus.forEach(menu => {
+
+        menu.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const parent = menu.parentElement;
+            if (parent) {
+                parent.classList.toggle('menu-open');
+            }
+        })
+    });
 })()
 
 const elements = document.querySelectorAll('[data-choices]');
